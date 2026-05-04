@@ -1,0 +1,19 @@
+---
+const stats = [
+  { value: '3',   label: 'Pilares estratégicos' },
+  { value: '5+',  label: 'Directores especializados' },
+  { value: 'LAC', label: 'América Latina y el Caribe' },
+  { value: '10+', label: 'Años de experiencia' },
+];
+---
+
+<section class="bg-corp py-5">
+  <div class="container flex flex-wrap justify-around gap-4">
+    {stats.map(s => (
+      <div class="text-center">
+        <span class="block text-2xl font-medium text-white">{s.value}</span>
+        <span class="block text-[10px] tracking-widest uppercase text-white/60 mt-0.5">{s.label}</span>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const principios = [
+  {
+    num: '01',
+    title: 'Criterio estratégico',
+    description: 'Analizamos el entorno político, regulatorio y social para diseñar estrategias que anticipen riesgos y oportunidades.',
+  },
+  {
+    num: '02',
+    title: 'Rigor técnico',
+    description: 'Combinamos conocimiento jurídico, económico y político con metodologías probadas de análisis y gestión.',
+  },
+  {
+    num: '03',
+    title: 'Enfoque multidisciplinario',
+    description: 'Integramos perspectivas diversas para abordar problemas complejos con soluciones integrales.',
+  },
+  {
+    num: '04',
+    title: 'Compromiso con la integridad',
+    description: 'Actuamos con transparencia, ética y responsabilidad en cada proyecto y relación institucional.',
+  },
+  {
+    num: '05',
+    title: 'Visión territorial',
+    description: 'Entendemos que cada proyecto se inserta en un contexto social, ambiental y económico específico.',
+  },
+  {
+    num: '06',
+    title: 'Adaptabilidad',
+    description: 'Diseñamos soluciones flexibles que responden a la dinámica de los entornos regulatorios y políticos.',
+  },
+  {
+    num: '07',
+    title: 'Impacto sostenible',
+    description: 'Buscamos generar valor de largo plazo, alineando los intereses de nuestros clientes con el bien común.',
+  },
+];
+
+const modelo = [
+  {
+    num: '01',
+    title: 'Diagnóstico',
+    description: 'Análisis del entorno político-regulatorio, mapeo de stakeholders y evaluación de riesgos y oportunidades.',
+  },
+  {
+    num: '02',
+    title: 'Diseño estratégico',
+    description: 'Definición de objetivos, construcción de narrativas y diseño de estrategias de relacionamiento institucional.',
+  },
+  {
+    num: '03',
+    title: 'Implementación',
+    description: 'Ejecución de acciones de posicionamiento, relacionamiento y comunicación con actores clave.',
+  },
+  {
+    num: '04',
+    title: 'Monitoreo',
+    description: 'Seguimiento continuo del entorno, ajuste de estrategias y gestión proactiva de riesgos emergentes.',
+  },
+  {
+    num: '05',
+    title: 'Evaluación',
+    description: 'Medición de resultados, análisis de impacto y generación de aprendizajes para futuras intervenciones.',
+  },
+];
+---
+
+<Layout title="Nosotros — Istmo Consultores">
+  <Header />
+  <main>
+    <section class="bg-marino py-10">
+      <div class="container">
+        <h1 class="text-3xl font-medium text-white mb-2">Nosotros</h1>
+        <p class="text-sm text-cielo max-w-2xl">
+          Quiénes somos y qué nos mueve
+        </p>
+      </div>
+    </section>
+
+    <section id="mision" class="bg-white py-20">
+      <div class="container grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <p class="eyebrow">Misión</p>
+          <h2 class="section-title">Conectar estrategia, institucionalidad y territorio</h2>
+          <p class="text-base text-gris leading-relaxed">
+            Acompañamos a organizaciones públicas y privadas en la navegación de entornos 
+            político-regulatorios complejos, fortaleciendo su capacidad de relacionamiento 
+            institucional, gobernanza y desarrollo territorial. Diseñamos estrategias que 
+            integran rigor técnico, criterio político y compromiso con la sostenibilidad.
+          </p>
+        </div>
+        <div>
+          <p class="eyebrow">Visión</p>
+          <h2 class="section-title">Instituciones más sólidas, proyectos más legítimos</h2>
+          <p class="text-base text-gris leading-relaxed">
+            Aspiramos a ser un referente regional en consultoría estratégica para el desarrollo 
+            sostenible, contribuyendo a que las organizaciones operen con integridad, anticipen 
+            riesgos y construyan relaciones de confianza con sus entornos institucionales y 
+            territoriales.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-fondo py-20">
+      <div class="container">
+        <p class="eyebrow">Principios rectores</p>
+        <h2 class="section-title">Siete pilares que guían nuestro trabajo</h2>
+        <p class="text-sm text-gris leading-relaxed max-w-2xl mb-8">
+          Nuestro enfoque se sustenta en principios que aseguran coherencia entre 
+          diagnóstico, estrategia y ejecución.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {principios.map(p => (
+            <article class="bg-white border border-gray-200 rounded p-6 hover:shadow-md transition-shadow">
+              <span class="text-[11px] text-medio font-medium tracking-widest block mb-3">{p.num}</span>
+              <h3 class="text-base font-medium text-negro mb-2 leading-snug">{p.title}</h3>
+              <p class="text-base text-gris leading-relaxed">{p.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="container">
+        <p class="eyebrow">Modelo de trabajo</p>
+        <h2 class="section-title">Cinco etapas para resultados sostenibles</h2>
+        <p class="text-sm text-gris leading-relaxed max-w-2xl mb-10">
+          Trabajamos con una metodología probada que combina análisis riguroso, 
+          diseño estratégico y ejecución adaptativa.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
+          {modelo.map((m, i) => (
+            <article class="relative border border-gray-200 border-t-[3px] border-t-corp rounded p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-full bg-corp text-white flex items-center justify-center text-sm font-medium mb-4">
+                {m.num}
+              </div>
+              <h3 class="text-base font-medium text-negro mb-2 leading-snug">{m.title}</h3>
+              <p class="text-base text-gris leading-relaxed">{m.description}</p>
+              {i < modelo.length - 1 && (
+                <div class="hidden md:block absolute top-1/2 -right-2.5 w-5 h-0.5 bg-medio opacity-30"></div>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contacto — Istmo Consultores">
+  <Header />
+  <main>
+    <section class="bg-marino py-10">
+      <div class="container">
+        <h1 class="text-3xl font-medium text-white mb-2">Contacto</h1>
+        <p class="text-sm text-cielo max-w-2xl">
+          Conversemos sobre tu proyecto
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="container">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-16">
+          <div>
+            <p class="eyebrow">Formulario de contacto</p>
+            <h2 class="section-title">Cuéntanos sobre tu proyecto</h2>
+            <p class="text-base text-gris leading-relaxed mb-8 max-w-xl">
+              Completa el formulario y nos pondremos en contacto contigo a la brevedad 
+              para agendar una conversación inicial.
+            </p>
+
+            <form name="contacto" method="POST" data-netlify="true" class="flex flex-col gap-5">
+              <input type="hidden" name="form-name" value="contacto" />
+              
+              <div>
+                <label for="nombre" class="block text-base font-medium text-negro mb-2">
+                  Nombre completo *
+                </label>
+                <input 
+                  type="text" 
+                  id="nombre" 
+                  name="nombre" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-200 rounded text-base text-negro focus:outline-none focus:border-corp transition-colors"
+                  placeholder="Tu nombre"
+                />
+              </div>
+
+              <div>
+                <label for="empresa" class="block text-base font-medium text-negro mb-2">
+                  Empresa u organización
+                </label>
+                <input 
+                  type="text" 
+                  id="empresa" 
+                  name="empresa"
+                  class="w-full px-4 py-3 border border-gray-200 rounded text-base text-negro focus:outline-none focus:border-corp transition-colors"
+                  placeholder="Nombre de tu organización"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-base font-medium text-negro mb-2">
+                  Email *
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-200 rounded text-base text-negro focus:outline-none focus:border-corp transition-colors"
+                  placeholder="tu@email.com"
+                />
+              </div>
+
+              <div>
+                <label for="mensaje" class="block text-base font-medium text-negro mb-2">
+                  Mensaje *
+                </label>
+                <textarea 
+                  id="mensaje" 
+                  name="mensaje" 
+                  required
+                  rows="6"
+                  class="w-full px-4 py-3 border border-gray-200 rounded text-sm text-negro focus:outline-none focus:border-corp transition-colors resize-none"
+                  placeholder="Cuéntanos sobre tu proyecto o consulta..."
+                ></textarea>
+              </div>
+
+              <div>
+                <button type="submit" class="btn-primary">
+                  Enviar mensaje
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div>
+            <div class="bg-fondo rounded p-8 sticky top-8">
+              <p class="eyebrow">Datos de contacto</p>
+              <h3 class="text-base font-medium text-negro mb-6">Información de contacto</h3>
+              
+              <div class="flex flex-col gap-6">
+                <div>
+                  <p class="text-[11px] text-gris uppercase tracking-wide font-medium mb-1">Email</p>
+                  <a href="mailto:contacto@istmoconsultores.com" class="text-base text-corp hover:text-marino transition-colors">
+                    contacto@istmoconsultores.com
+                  </a>
+                </div>
+
+                <div>
+                  <p class="text-[11px] text-gris uppercase tracking-wide font-medium mb-1">País</p>
+                  <p class="text-base text-negro">Chile</p>
+                </div>
+
+                <div>
+                  <p class="text-[11px] text-gris uppercase tracking-wide font-medium mb-1">LinkedIn</p>
+                  <a href="https://www.linkedin.com/company/istmo-consultores" target="_blank" rel="noopener noreferrer" class="text-base text-corp hover:text-marino transition-colors">
+                    linkedin.com/company/istmo-consultores
+                  </a>
+                </div>
+              </div>
+
+              <div class="mt-8 pt-8 border-t border-gray-200">
+                <p class="text-base text-gris leading-relaxed">
+                  <strong class="text-negro font-medium">Cobertura regional:</strong> Operamos en Chile 
+                  y contamos con presencia en Centroamérica, el Caribe y México a través de nuestra 
+                  red de expertos asociados.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-negro py-16">
+      <div class="container text-center">
+        <h2 class="text-2xl md:text-3xl font-medium text-white mb-4">¿Prefieres agendar una reunión directamente?</h2>
+        <p class="text-lg text-cielo leading-relaxed max-w-xl mx-auto mb-6">
+          Escríbenos a <a href="mailto:contacto@istmoconsultores.com" class="text-white font-medium hover:text-cielo transition-colors">contacto@istmoconsultores.com</a> 
+          y coordinamos una conversación inicial.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

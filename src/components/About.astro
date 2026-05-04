@@ -1,0 +1,43 @@
+---
+const values = [
+  'Rigor técnico y análisis político avanzado',
+  'Actuación multinivel: local, nacional y regional',
+  'Red de especialistas asociados en LAC',
+  'Confianza, reserva y responsabilidad institucional',
+  'Anticipación estratégica de riesgos y oportunidades',
+  'Valor sostenible alineado con criterios ESG',
+];
+---
+
+<section class="bg-negro py-20">
+  <div class="container grid grid-cols-1 md:grid-cols-[1.2fr_1px_1fr] gap-10 md:gap-12 items-start">
+
+    <div>
+      <p class="text-[11px] tracking-[0.12em] uppercase text-cielo font-medium mb-2">Propuesta de valor</p>
+      <h2 class="text-2xl md:text-3xl font-medium text-white leading-snug mb-5">
+        Actuamos donde la complejidad se convierte en oportunidad estratégica
+      </h2>
+      <p class="text-sm text-white/55 leading-relaxed mb-3">
+        Operamos en la intersección del sector público, el sector privado y la sociedad civil,
+        en un entorno de fragmentación política, incertidumbre regulatoria y conflictividad socioambiental.
+      </p>
+      <p class="text-sm text-white/55 leading-relaxed mb-7">
+        Articulamos actores, anticipamos escenarios y traducimos riesgos en oportunidades,
+        acompañando a nuestros clientes en la construcción de legitimidad y valor sostenible.
+      </p>
+      <a href="/nosotros" class="btn-primary">Conocer más</a>
+    </div>
+
+    <div class="hidden md:block bg-white/10 self-stretch"></div>
+
+    <ul class="flex flex-col gap-4">
+      {values.map(v => (
+        <li class="flex items-start gap-3 text-[13px] text-white/70 leading-snug">
+          <span class="w-1.5 h-1.5 rounded-full bg-medio flex-shrink-0 mt-1.5"></span>
+          {v}
+        </li>
+      ))}
+    </ul>
+
+  </div>
+</section>

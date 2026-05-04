@@ -1,0 +1,74 @@
+---
+const navLinks = [
+  { label: 'Inicio',    href: '/' },
+  { label: 'Nosotros',  href: '/nosotros' },
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Equipo',    href: '/equipo' },
+  { label: 'Sectores',  href: '/sectores' },
+];
+
+const current = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white border-b border-gray-200">
+  <div class="container flex items-center gap-8 h-20">
+
+    <a href="/" aria-label="Istmo Consultores">
+      <img src="/logo-ISTMO.svg" alt="Istmo Consultores" width="200" height="50" class="h-12 w-auto" />
+    </a>
+
+    <nav class="flex-1 hidden md:flex justify-center" aria-label="Navegación principal">
+      <ul class="flex gap-8 list-none">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`text-xs tracking-widest uppercase font-medium transition-colors
+                ${current === link.href
+                  ? 'text-corp border-b-2 border-corp pb-0.5'
+                  : 'text-gris hover:text-corp'}`}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href="/contacto" class="btn-primary hidden md:inline-block text-sm px-6 py-2.5">
+      Contacto
+    </a>
+
+    <button id="burger" class="md:hidden ml-auto p-1" aria-label="Abrir menú" aria-expanded="false">
+      <span class="block w-5 h-0.5 bg-negro mb-1.5"></span>
+      <span class="block w-5 h-0.5 bg-negro mb-1.5"></span>
+      <span class="block w-5 h-0.5 bg-negro"></span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden border-t border-gray-100 bg-white overflow-hidden transition-all duration-300 ease-in-out max-h-0">
+    <div class="px-6 pb-4 pt-2 flex flex-col gap-2">
+      {navLinks.map(link => (
+        <a href={link.href} class="text-base text-negro py-3 text-center rounded transition-colors hover:bg-fondo">{link.label}</a>
+      ))}
+      <a href="/contacto" class="btn-primary text-center mt-2">Contacto</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const burger = document.getElementById('burger')!;
+  const menu   = document.getElementById('mobile-menu')!;
+  
+  burger.addEventListener('click', () => {
+    const isOpen = menu.style.maxHeight && menu.style.maxHeight !== '0px';
+    
+    if (isOpen) {
+      menu.style.maxHeight = '0px';
+      burger.setAttribute('aria-expanded', 'false');
+    } else {
+      menu.style.maxHeight = menu.scrollHeight + 'px';
+      burger.setAttribute('aria-expanded', 'true');
+    }
+  });
+</script>

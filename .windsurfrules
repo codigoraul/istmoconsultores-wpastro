@@ -1,0 +1,129 @@
+# Istmo Consultores — Reglas de diseño para Windsurf
+
+## Stack
+- Astro 4 + Tailwind CSS 3
+- Sin frameworks JS (solo Astro vanilla)
+- Fuente: Inter (Google Fonts, ya cargada en Layout.astro)
+
+## Paleta de colores (definida en tailwind.config.mjs)
+
+| Nombre   | Clase Tailwind   | Hex       | Uso principal                        |
+|----------|-----------------|-----------|--------------------------------------|
+| marino   | bg-marino        | #1B2E4E   | Hero, navbar dark, foto equipo       |
+| corp     | bg-corp          | #2E5090   | Botones, stats bar, acentos          |
+| medio    | bg-medio         | #5B8CC8   | Dots, números, líneas decorativas    |
+| cielo    | text-cielo       | #9EC3E8   | Texto destacado sobre marino/negro   |
+| negro    | text-negro       | #1C1C1E   | Títulos y texto principal            |
+| gris     | text-gris        | #6B6B6B   | Texto secundario, descripción        |
+| fondo    | bg-fondo         | #F4F7FB   | Fondo de secciones alternas          |
+
+## Clases globales reutilizables (definidas en global.css)
+
+```
+.container    → max-w-site mx-auto px-8
+.eyebrow      → texto pequeño uppercase corp encima de títulos
+.section-title → título de sección h2
+.btn-primary  → botón azul corp, hover marino
+.btn-ghost    → botón outline blanco (para fondos oscuros)
+```
+
+## Estructura de carpetas
+
+```
+src/
+├── components/   → Un componente por sección (Header, Hero, Footer, etc.)
+├── layouts/      → Layout.astro (base HTML, fuentes, meta)
+├── pages/        → Una página por ruta (index, nosotros, servicios, equipo, contacto)
+└── styles/       → global.css (solo @tailwind + clases globales)
+public/
+└── logo-ISTMO.svg
+```
+
+## Cómo crear una nueva página interna
+
+1. Crear el archivo en `src/pages/nombre-pagina.astro`
+2. Usar siempre este esqueleto:
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Título de la página — Istmo Consultores">
+  <Header />
+  <main>
+    <!-- contenido aquí -->
+  </main>
+  <Footer />
+</Layout>
+```
+
+## Patrón de sección estándar
+
+```astro
+<section class="bg-white py-20">
+  <div class="container">
+    <p class="eyebrow">Subtítulo pequeño</p>
+    <h2 class="section-title">Título principal de la sección</h2>
+    <!-- contenido -->
+  </div>
+</section>
+```
+
+## Alternancia de fondos entre secciones
+
+Seguir este patrón para que las secciones no se vean iguales:
+- Sección clara: `bg-white`
+- Sección alternada: `bg-fondo`
+- Sección oscura (énfasis): `bg-negro` o `bg-marino`
+
+## Páginas pendientes de crear
+
+### /nosotros
+- Hero pequeño con `bg-marino` y título de página
+- Sección: Misión y Visión (2 columnas)
+- Sección: 7 Principios Rectores (grid de cards)
+- Sección: Modelo de trabajo (5 pasos numerados)
+
+### /servicios
+- Hero pequeño
+- 3 secciones detalladas (una por pilar), cada una con id: #estrategia, #innovacion, #proyectos
+- Cada pilar: título, descripción larga, lista de servicios con dots
+
+### /equipo
+- Hero pequeño
+- Grid de 5 cards con foto placeholder (usar iniciales como está en Team.astro)
+- Bio completa de cada director
+- Sección "Red de Expertos Asociados"
+
+### /sectores
+- Hero pequeño
+- Pills de sectores (reutilizar de Sectors.astro)
+- Lista de tipos de clientes
+
+### /contacto
+- Formulario: nombre, empresa, email, mensaje, botón enviar
+- Datos de contacto: email, país, LinkedIn
+- Sin backend por ahora (usar Netlify Forms o Formspree)
+
+## Tipografía
+
+- Fuentes: `font-serif` (Playfair Display) para h1/h2, `font-sans` (Inter) para cuerpo y eyebrow
+- Títulos h1: `font-serif text-4xl md:text-5xl font-medium`
+- Títulos h2: `font-serif text-2xl md:text-3xl font-medium` (o usar clase `.section-title` que ya incluye font-serif)
+- Títulos h3: `text-base font-medium` (Inter, sin serif)
+- Cuerpo: `text-sm` o `text-[14px]` con `leading-relaxed`
+- Pequeño: `text-[13px]` o `text-[11px]`
+- Eyebrow: `text-[11px] tracking-[0.12em] uppercase`
+
+## Reglas importantes
+
+- Siempre `rounded` (no rounded-lg ni rounded-xl) en cards y botones
+- Bordes de cards: `border border-gray-200`
+- Hover en cards: `hover:shadow-md transition-shadow`
+- Cards de servicio: borde superior de acento `border-t-[3px] border-t-corp`
+- El logo en fondos oscuros: agregar `brightness-0 invert opacity-60`
+- No usar colores fuera de la paleta definida
+- Mobile-first: empezar con diseño móvil y agregar `md:` para desktop

@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const sectors = [
+  'Energía','Minería','Recursos naturales','Infraestructura',
+  'Desarrollo urbano e inmobiliario','Sistemas agroalimentarios',
+  'Innovación y sostenibilidad','Políticas públicas','Inversiones y tecnología',
+];
+
+const clients = [
+  'Empresas',
+  'Asociaciones gremiales y sectoriales',
+  'Cooperativas y organizaciones de la economía social',
+  'Desarrolladores de proyectos e inversionistas',
+  'Instituciones públicas y organizaciones de la sociedad civil',
+  'Organismos internacionales y agencias de cooperación',
+];
+---
+
+<Layout title="Sectores — Istmo Consultores">
+  <Header />
+  <main>
+    <section class="bg-marino py-10">
+      <div class="container">
+        <h1 class="text-3xl font-medium text-white mb-2">Sectores</h1>
+        <p class="text-sm text-cielo max-w-2xl">
+          Sectores regulados y de alto impacto público
+        </p>
+      </div>
+    </section>
+
+    <section id="sectores" class="bg-white py-20">
+      <div class="container">
+        <div class="max-w-4xl">
+          <p class="eyebrow">Áreas de especialización</p>
+          <h2 class="section-title">Sectores estratégicos en América Latina y el Caribe</h2>
+          <p class="text-base text-gris leading-relaxed mb-8 max-w-2xl">
+            Trabajamos en sectores donde la complejidad político-regulatoria, los impactos territoriales 
+            y las exigencias de sostenibilidad requieren un enfoque estratégico integral.
+          </p>
+          <div class="flex flex-wrap gap-2.5">
+            {sectors.map(s => (
+              <span class="border border-corp text-corp text-sm px-5 py-2.5 rounded-full hover:bg-corp hover:text-white transition-colors cursor-default">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-fondo py-20">
+      <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <div>
+            <p class="eyebrow">Nuestros clientes</p>
+            <h2 class="section-title">Trabajamos con una amplia diversidad de actores</h2>
+            <p class="text-base text-gris leading-relaxed mb-6">
+              Acompañamos a organizaciones públicas, privadas y de la sociedad civil en la 
+              construcción de estrategias que integren legitimidad, viabilidad y sostenibilidad.
+            </p>
+          </div>
+          <div class="bg-white rounded p-8 border border-gray-200">
+            <ul class="flex flex-col gap-4">
+              {clients.map(c => (
+                <li class="flex items-start gap-3 text-base text-gris leading-snug">
+                  <span class="w-1.5 h-1.5 rounded-full bg-corp flex-shrink-0 mt-2"></span>
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20">
+      <div class="container">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="eyebrow">Enfoque territorial</p>
+          <h2 class="section-title">Cada proyecto se inserta en un contexto específico</h2>
+          <p class="text-sm text-gris leading-relaxed mb-8">
+            Entendemos que la viabilidad de un proyecto no depende solo de su diseño técnico o económico, 
+            sino de su capacidad para insertarse de manera legítima en un territorio, respetando sus 
+            dinámicas sociales, ambientales e institucionales.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+            <div class="border border-gray-200 rounded p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-full bg-corp/10 flex items-center justify-center mb-4 mx-auto">
+                <span class="text-corp text-lg font-medium">01</span>
+              </div>
+              <h3 class="text-base font-medium text-negro mb-2">Análisis contextual</h3>
+              <p class="text-base text-gris leading-relaxed">
+                Evaluamos el entorno político, regulatorio y social de cada territorio.
+              </p>
+            </div>
+            <div class="border border-gray-200 rounded p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-full bg-corp/10 flex items-center justify-center mb-4 mx-auto">
+                <span class="text-corp text-lg font-medium">02</span>
+              </div>
+              <h3 class="text-base font-medium text-negro mb-2">Mapeo de actores</h3>
+              <p class="text-base text-gris leading-relaxed">
+                Identificamos stakeholders clave y sus intereses en el territorio.
+              </p>
+            </div>
+            <div class="border border-gray-200 rounded p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-full bg-corp/10 flex items-center justify-center mb-4 mx-auto">
+                <span class="text-corp text-lg font-medium">03</span>
+              </div>
+              <h3 class="text-base font-medium text-negro mb-2">Estrategia de relacionamiento</h3>
+              <p class="text-base text-gris leading-relaxed">
+                Diseñamos planes de relacionamiento comunitario y licencia social.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

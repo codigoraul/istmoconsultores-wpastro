@@ -1,0 +1,53 @@
+---
+const sectors = [
+  'Energía','Minería','Recursos naturales','Infraestructura',
+  'Desarrollo urbano e inmobiliario','Sistemas agroalimentarios',
+  'Innovación y sostenibilidad','Políticas públicas','Inversiones y tecnología',
+];
+
+const clients = [
+  'Empresas',
+  'Asociaciones gremiales y sectoriales',
+  'Cooperativas y organizaciones de la economía social',
+  'Desarrolladores de proyectos e inversionistas',
+  'Instituciones públicas y organizaciones de la sociedad civil',
+  'Organismos internacionales y agencias de cooperación',
+];
+---
+
+<section class="bg-white py-20" id="sectores">
+  <div class="container grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-12 items-start">
+
+    <div>
+      <p class="eyebrow">Sectores de intervención</p>
+      <h2 class="section-title">Donde el entorno institucional define la viabilidad</h2>
+      <p class="text-sm text-gris leading-relaxed mb-6 max-w-md">
+        Focalizamos nuestra intervención en sectores regulados o de alto impacto público,
+        donde la viabilidad de los proyectos depende críticamente del entorno institucional y social.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        {sectors.map(s => (
+          <span class="border border-corp text-corp text-[13px] px-4 py-1.5 rounded-full hover:bg-corp hover:text-white transition-colors cursor-default">
+            {s}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="bg-fondo rounded p-7">
+      <p class="eyebrow">Nuestros clientes</p>
+      <h3 class="text-base font-medium text-negro mb-5 leading-snug">
+        Trabajamos con una amplia diversidad de actores
+      </h3>
+      <ul class="flex flex-col gap-3">
+        {clients.map(c => (
+          <li class="flex items-start gap-2.5 text-[13px] text-gris leading-snug">
+            <span class="w-1.5 h-1.5 rounded-full bg-corp flex-shrink-0 mt-1.5"></span>
+            {c}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+  </div>
+</section>

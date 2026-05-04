@@ -1,0 +1,42 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-[#0d1828]">
+  <div class="container py-12 grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-10 border-b border-white/10">
+
+    <div>
+      <img src="/logo-ISTMO.svg" alt="Istmo Consultores" width="160" height="40"
+        class="h-9 w-auto mb-3 brightness-0 invert opacity-60" />
+      <p class="text-[13px] text-white/35 italic">Conectamos visiones, construimos valor</p>
+    </div>
+
+    <div>
+      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-4">Servicios</h3>
+      <ul class="flex flex-col gap-2.5">
+        {['Estrategia Pública y Reputacional','Innovación Institucional','Desarrollo y Viabilidad de Proyectos'].map(s => (
+          <li><a href="/servicios" class="text-[13px] text-white/50 hover:text-white/90 transition-colors">{s}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-4">Empresa</h3>
+      <ul class="flex flex-col gap-2.5">
+        {[
+          {label:'Quiénes somos', href:'/nosotros'},
+          {label:'Equipo', href:'/equipo'},
+          {label:'Sectores', href:'/sectores'},
+          {label:'Contacto', href:'/contacto'},
+        ].map(l => (
+          <li><a href={l.href} class="text-[13px] text-white/50 hover:text-white/90 transition-colors">{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container py-5 flex flex-wrap justify-between gap-2 text-[12px] text-white/25">
+    <span>© {year} Istmo Consultores · Chile</span>
+    <span>info@istmoconsultores.com</span>
+  </div>
+</footer>

@@ -1,0 +1,70 @@
+---
+const team = [
+  {
+    initials: 'FS',
+    name: 'Farid Seleme Ruilova',
+    role: 'Socio Director',
+    bio: 'Abogado y Magíster en Derecho Ambiental. Más de diez años en asuntos públicos, análisis político-regulatorio y relacionamiento institucional en Chile y América Latina.',
+  },
+  {
+    initials: 'CG',
+    name: 'Constanza Guerrero Reyes',
+    role: 'Directora Legal',
+    bio: 'Abogada especializada en derecho administrativo, inmobiliario y urbanístico. Experta en regulación pública, estructuración jurídica de proyectos y permisos.',
+  },
+  {
+    initials: 'JS',
+    name: 'Juan Antonio Seleme Yagnam',
+    role: 'Director de Proyectos y Desarrollo Territorial',
+    bio: 'Ingeniero Civil Industrial y Magíster en Desarrollo Social Rural. Especialista en formulación de proyectos, desarrollo territorial y relacionamiento comunitario.',
+  },
+  {
+    initials: 'JR',
+    name: 'José Pedro Rossel',
+    role: 'Director de Comunicación Estratégica',
+    bio: 'Periodista con especialización en política internacional. Trayectoria en el Ministerio de Relaciones Exteriores y la Cámara de Diputadas y Diputados de Chile.',
+  },
+  {
+    initials: 'JH',
+    name: 'Julio Héctor Sánchez Gutiérrez',
+    role: 'Subdirector Regional — Centroamérica, el Caribe y México',
+    bio: 'Biólogo con más de 30 años en desarrollo sostenible y derecho ambiental. Asesor legislativo para organismos multilaterales en América Latina y el Caribe.',
+  },
+];
+---
+
+<section class="bg-fondo py-20" id="equipo">
+  <div class="container">
+    <p class="eyebrow">Equipo directivo</p>
+    <h2 class="section-title">Criterio estratégico y experiencia multidisciplinaria</h2>
+    <p class="text-[15px] text-gris leading-relaxed max-w-xl mb-8">
+      La firma opera bajo un modelo ágil que combina un núcleo directivo con una red de
+      especialistas asociados en América Latina y el Caribe.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {team.map(m => (
+        <article class="bg-white border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow">
+          <div class="h-20 bg-marino flex items-center justify-center">
+            <div class="w-12 h-12 rounded-full border-2 border-medio flex items-center justify-center text-base font-medium text-cielo">
+              {m.initials}
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-[15px] font-medium text-negro mb-1">{m.name}</h3>
+            <p class="text-[11px] text-corp uppercase tracking-wide font-medium mb-3">{m.role}</p>
+            <p class="text-[13px] text-gris leading-relaxed">{m.bio}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-8 border-l-[3px] border-corp pl-5 py-1 bg-white rounded">
+      <p class="text-sm text-gris leading-relaxed">
+        Istmo Consultores cuenta con una <strong class="text-negro font-medium">red de expertos asociados</strong> que se integran
+        a los proyectos según sus requerimientos, permitiendo escalar capacidades y responder con
+        flexibilidad a cada encargo.
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const servicios = [
+  {
+    id: 'estrategia',
+    num: '01',
+    title: 'Estrategia Pública y Reputacional',
+    intro: 'Diseñamos estrategias de relacionamiento institucional y comunicación que permiten desenvolverse de manera legítima y efectiva en entornos político-regulatorios complejos.',
+    descripcion: 'En contextos donde las decisiones políticas, regulatorias y sociales determinan la viabilidad de proyectos e iniciativas, es fundamental contar con una estrategia de relacionamiento público-privado que anticipe riesgos, identifique oportunidades y construya legitimidad. Nuestro enfoque combina análisis político, monitoreo regulatorio y gestión reputacional para posicionar a nuestros clientes de manera coherente y efectiva ante autoridades, organismos multilaterales y la opinión pública.',
+    items: [
+      'Diseño de estrategias de relacionamiento público-privado',
+      'Monitoreo y análisis legislativo y regulatorio',
+      'Análisis prospectivo del entorno político y económico',
+      'Mapeo y perfilamiento de stakeholders',
+      'Posicionamiento ante autoridades y organismos multilaterales',
+      'Diagnósticos reputacionales y gestión de crisis',
+      'Monitoreo de marca en entornos digitales',
+    ],
+  },
+  {
+    id: 'innovacion',
+    num: '02',
+    title: 'Innovación Institucional y Corporativa',
+    intro: 'Fortalecemos marcos de cumplimiento, integridad y gobernanza, acompañando procesos de transformación con coherencia entre estrategia, cultura y comunicación.',
+    descripcion: 'Las organizaciones enfrentan crecientes exigencias en materia de integridad, transparencia y gobernanza. Más allá del cumplimiento formal, se requiere construir culturas institucionales sólidas que alineen valores, prácticas y comunicación. Acompañamos procesos de cambio organizacional, diseñamos modelos de prevención y cumplimiento, y fortalecemos capacidades internas para operar con estándares de integridad que generen confianza y sostenibilidad.',
+    items: [
+      'Diagnóstico de riesgos de compliance y gobernanza',
+      'Diseño de modelos de prevención y cumplimiento',
+      'Códigos de ética y conducta institucional',
+      'Protocolos de relacionamiento con stakeholders',
+      'Capacitación en integridad y estándares ESG',
+      'Acompañamiento en cambio organizacional',
+      'Planes de comunicación interna',
+    ],
+  },
+  {
+    id: 'proyectos',
+    num: '03',
+    title: 'Desarrollo y Viabilidad de Proyectos',
+    intro: 'Apoyamos la estructuración de proyectos de inversión, implementamos estrategias territoriales y acompañamos a las organizaciones en la optimización de su capital.',
+    descripcion: 'El éxito de un proyecto de inversión no depende solo de su viabilidad técnica o económica, sino de su capacidad para insertarse de manera legítima en un territorio y un entorno regulatorio. Acompañamos la estructuración integral de proyectos, evaluamos riesgos político-regulatorios y territoriales, y diseñamos estrategias de relacionamiento comunitario que fortalezcan la licencia social. Además, asesoramos en modelos asociativos, inversiones tradicionales y DeFi, y en el diseño de programas de impacto socioeconómico territorial.',
+    items: [
+      'Estructuración integral de proyectos de inversión',
+      'Modelamiento de negocios y viabilidad económica',
+      'Evaluación de riesgos regulatorios y territoriales',
+      'Estrategias de relacionamiento comunitario',
+      'Diseño y fortalecimiento de modelos asociativos',
+      'Asesoría en inversiones tradicionales y DeFi',
+      'Programas de impacto socioeconómico territorial',
+    ],
+  },
+];
+---
+
+<Layout title="Servicios — Istmo Consultores">
+  <Header />
+  <main>
+    <section class="bg-marino py-10">
+      <div class="container">
+        <h1 class="text-3xl font-medium text-white mb-2">Servicios</h1>
+        <p class="text-sm text-cielo max-w-2xl">
+          Tres pilares estratégicos para proyectos sostenibles
+        </p>
+      </div>
+    </section>
+
+    {servicios.map((svc, index) => (
+      <section id={svc.id} class={index % 2 === 0 ? 'bg-white py-20' : 'bg-fondo py-20'}>
+        <div class="container">
+          <div class="max-w-4xl">
+            <span class="text-[11px] text-medio font-medium tracking-widest block mb-2">{svc.num}</span>
+            <h2 class="text-2xl md:text-3xl font-medium text-negro leading-tight mb-4">{svc.title}</h2>
+            <p class="text-lg text-negro leading-relaxed mb-6 font-medium">{svc.intro}</p>
+            <p class="text-base text-gris leading-relaxed mb-8">{svc.descripcion}</p>
+
+            <div class="border-l-[3px] border-corp pl-6 bg-white rounded py-4">
+              <h3 class="text-base font-medium text-negro mb-4">Servicios específicos</h3>
+              <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {svc.items.map(item => (
+                  <li class="flex items-start gap-2.5 text-base text-gris leading-snug">
+                    <span class="w-1.5 h-1.5 rounded-full bg-medio flex-shrink-0 mt-1.5"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <section class="bg-negro py-16">
+      <div class="container text-center">
+        <h2 class="text-2xl md:text-3xl font-medium text-white mb-4">¿Necesitas asesoría estratégica?</h2>
+        <p class="text-[15px] text-cielo leading-relaxed max-w-xl mx-auto mb-6">
+          Conversemos sobre cómo podemos apoyar tu proyecto u organización.
+        </p>
+        <a href="/contacto" class="btn-ghost">Contáctanos</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
