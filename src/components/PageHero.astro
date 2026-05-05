@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  variant?: 'edificios' | 'reunion' | 'geometrico';
+  image?: string;
+}
+
+const { title, subtitle, variant = 'edificios', image } = Astro.props;
+
+const variants = {
+  edificios: {
+    image: '/images/hero-edificios.webp',
+    overlay: 'rgba(27,46,78,0.82)',
+  },
+  reunion: {
+    image: '/images/hero-reunion.webp',
+    overlay: 'rgba(18,30,50,0.80)',
+  },
+  geometrico: {
+    image: null,
+    overlay: null,
+  },
+};
+
+const v = {
+  image: image ?? variants[variant].image,
+  overlay: variants[variant].overlay,
+};
+---
+
+<section class="relative overflow-hidden py-14"
+  style={variant === 'geometrico' ? 'background-color:#1B2E4E' : ''}>
+
+  {v.image && (
+    <div class="absolute inset-0 z-0">
+      <img src={v.image} alt="" class="w-full h-full object-cover object-center" />
+      <div class="absolute inset-0" style={`background:${v.overlay}`}></div>
+    </div>
+  )}
+
+  {variant === 'geometrico' && (
+    <div class="absolute inset-0 z-0 bg-marino">
+      <svg class="absolute inset-0 w-full h-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+            <path d="M 50 0 L 0 0 0 50" fill="none" stroke="white" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+      </svg>
+    </div>
+  )}
+
+  <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-medio/50 z-10"></div>
+
+  <div class="container relative z-10">
+    <h1 class="text-3xl font-medium text-white mb-2">{title}</h1>
+    {subtitle && (
+      <p class="text-sm text-cielo max-w-2xl">{subtitle}</p>
+    )}
+  </div>
+</section>

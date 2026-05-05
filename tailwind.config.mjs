@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
+        serif: ['Lora', 'Georgia', 'serif'],
       },
       maxWidth: {
         site: '1200px',

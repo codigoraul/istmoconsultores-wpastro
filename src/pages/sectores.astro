@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
 import Footer from '../components/Footer.astro';
 
 const sectors = [
@@ -22,14 +23,12 @@ const clients = [
 <Layout title="Sectores — Istmo Consultores">
   <Header />
   <main>
-    <section class="bg-marino py-10">
-      <div class="container">
-        <h1 class="text-3xl font-medium text-white mb-2">Sectores</h1>
-        <p class="text-sm text-cielo max-w-2xl">
-          Sectores regulados y de alto impacto público
-        </p>
-      </div>
-    </section>
+    <PageHero
+      variant="edificios"
+      image="/images/title-mapa.webp"
+      title="Sectores"
+      subtitle="Sectores regulados y de alto impacto público"
+    />
 
     <section id="sectores" class="bg-white py-20">
       <div class="container">

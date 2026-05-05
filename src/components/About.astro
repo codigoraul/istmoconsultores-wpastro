@@ -9,8 +9,12 @@ const values = [
 ];
 ---
 
-<section class="bg-negro py-20">
-  <div class="container grid grid-cols-1 md:grid-cols-[1.2fr_1px_1fr] gap-10 md:gap-12 items-start">
+<section class="relative bg-negro py-20 overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <img src="/images/title-mapa.webp" alt="" class="w-full h-full object-cover object-center opacity-20" />
+    <div class="absolute inset-0 bg-negro/70"></div>
+  </div>
+  <div class="container relative z-10 grid grid-cols-1 md:grid-cols-[1.2fr_1px_1fr] gap-10 md:gap-12 items-start">
 
     <div>
       <p class="text-[11px] tracking-[0.12em] uppercase text-cielo font-medium mb-2">Propuesta de valor</p>
@@ -41,3 +45,4 @@ const values = [
 
   </div>
 </section>
+

@@ -3,40 +3,77 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="bg-[#0d1828]">
-  <div class="container py-12 grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-10 border-b border-white/10">
+  <div class="container py-14 grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-white/10">
 
+    <!-- Columna 1: Marca -->
     <div>
-      <img src="/logo-ISTMO.svg" alt="Istmo Consultores" width="160" height="40"
-        class="h-9 w-auto mb-3 brightness-0 invert opacity-60" />
-      <p class="text-[13px] text-white/35 italic">Conectamos visiones, construimos valor</p>
+      <img src="/logo-ISTMO-v.svg" alt="Istmo Consultores" width="260" height="100"
+        class="mb-4 brightness-0 invert opacity-60" style="height:74px; width:auto;" />
+      <p class="text-[13px] text-white/40 italic mb-4">Conectamos visiones, construimos valor</p>
+      <p class="text-[13px] text-white/35 leading-relaxed">
+        Firma especializada en asuntos públicos, comunicación estratégica, desarrollo territorial
+        e innovación institucional, con base en Chile y presencia en América Latina y el Caribe.
+      </p>
     </div>
 
+    <!-- Columna 2: Áreas de práctica + Sectores -->
     <div>
-      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-4">Servicios</h3>
-      <ul class="flex flex-col gap-2.5">
-        {['Estrategia Pública y Reputacional','Innovación Institucional','Desarrollo y Viabilidad de Proyectos'].map(s => (
-          <li><a href="/servicios" class="text-[13px] text-white/50 hover:text-white/90 transition-colors">{s}</a></li>
-        ))}
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-4">Empresa</h3>
-      <ul class="flex flex-col gap-2.5">
+      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-5">Áreas de práctica</h3>
+      <ul class="flex flex-col gap-3 mb-7">
         {[
-          {label:'Quiénes somos', href:'/nosotros'},
-          {label:'Equipo', href:'/equipo'},
-          {label:'Sectores', href:'/sectores'},
-          {label:'Contacto', href:'/contacto'},
-        ].map(l => (
-          <li><a href={l.href} class="text-[13px] text-white/50 hover:text-white/90 transition-colors">{l.label}</a></li>
+          {label: 'Estrategia Pública y Reputacional', href: '/servicios#estrategia'},
+          {label: 'Innovación Institucional', href: '/servicios#innovacion'},
+          {label: 'Desarrollo y Viabilidad de Proyectos', href: '/servicios#proyectos'},
+        ].map(s => (
+          <li>
+            <a href={s.href} class="text-[13px] text-white/50 hover:text-white/90 transition-colors leading-snug block">
+              {s.label}
+            </a>
+          </li>
         ))}
       </ul>
+      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-3">Sectores</h3>
+      <p class="text-[13px] text-white/35 leading-relaxed">
+        Energía · Minería · Infraestructura · Desarrollo urbano · Políticas públicas · Innovación y sostenibilidad
+      </p>
     </div>
+
+    <!-- Columna 3: Empresa + Contacto -->
+    <div>
+      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-5">Empresa</h3>
+      <ul class="flex flex-col gap-3 mb-8">
+        {[
+          {label: 'Quiénes somos', href: '/nosotros'},
+          {label: 'Equipo directivo', href: '/equipo'},
+          {label: 'Sectores de intervención', href: '/sectores'},
+          {label: 'Contacto', href: '/contacto'},
+        ].map(l => (
+          <li>
+            <a href={l.href} class="text-[13px] text-white/50 hover:text-white/90 transition-colors">{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-4">Contacto</h3>
+      <ul class="flex flex-col gap-2.5">
+        <li>
+          <a href="mailto:info@istmoconsultores.com" class="text-[13px] text-white/50 hover:text-white/90 transition-colors">
+            info@istmoconsultores.com
+          </a>
+        </li>
+        <li class="text-[13px] text-white/35">Chile · América Latina y el Caribe</li>
+        <li>
+          <a href="https://www.linkedin.com/company/istmoconsultores" target="_blank" rel="noopener"
+            class="text-[13px] text-white/50 hover:text-white/90 transition-colors">
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+    </div>
+
   </div>
 
-  <div class="container py-5 flex flex-wrap justify-between gap-2 text-[12px] text-white/25">
-    <span>© {year} Istmo Consultores · Chile</span>
-    <span>info@istmoconsultores.com</span>
+  <div class="container py-5 flex flex-wrap justify-between gap-2 text-[12px] text-white/20">
+    <span>© {year} Istmo Consultores · Todos los derechos reservados</span>
+    <span>Santiago, Chile</span>
   </div>
 </footer>

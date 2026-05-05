@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
 import Footer from '../components/Footer.astro';
 
 const team = [
@@ -45,14 +46,12 @@ const team = [
 <Layout title="Equipo — Istmo Consultores">
   <Header />
   <main>
-    <section class="bg-marino py-10">
-      <div class="container">
-        <h1 class="text-3xl font-medium text-white mb-2">Equipo</h1>
-        <p class="text-sm text-cielo max-w-2xl">
-          Criterio estratégico y experiencia multidisciplinaria
-        </p>
-      </div>
-    </section>
+    <PageHero
+      variant="reunion"
+      title="Equipo"
+      subtitle="Criterio estratégico y experiencia multidisciplinaria"
+      image="/images/title-equipo.webp"
+    />
 
     <section id="directivo" class="bg-white py-20">
       <div class="container">
@@ -82,25 +81,29 @@ const team = [
       </div>
     </section>
 
-    <section class="bg-fondo py-20">
-      <div class="container">
+    <section class="relative bg-marino py-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="/images/title-mapa.webp" alt="" class="w-full h-full object-cover object-center opacity-15" />
+        <div class="absolute inset-0 bg-marino/80"></div>
+      </div>
+      <div class="container relative z-10">
         <div class="max-w-3xl">
-          <p class="eyebrow">Red de expertos asociados</p>
-          <h2 class="section-title">Capacidades escalables y especializadas</h2>
-          <p class="text-base text-gris leading-relaxed mb-6">
-            Istmo Consultores cuenta con una <strong class="text-negro font-medium">red de expertos asociados</strong> 
-            que se integran a los proyectos según sus requerimientos, permitiendo escalar capacidades y responder 
+          <p class="eyebrow text-cielo">Red de expertos asociados</p>
+          <h2 class="font-serif text-2xl md:text-3xl font-medium text-white leading-tight mb-6">Capacidades escalables y especializadas</h2>
+          <p class="text-base text-white/60 leading-relaxed mb-6">
+            Istmo Consultores cuenta con una <strong class="text-white font-medium">red de expertos asociados</strong>
+            que se integran a los proyectos según sus requerimientos, permitiendo escalar capacidades y responder
             con flexibilidad a cada encargo.
           </p>
-          <p class="text-base text-gris leading-relaxed mb-6">
-            Esta red incluye profesionales con trayectoria en derecho, economía, ciencias políticas, 
-            comunicación estratégica, desarrollo territorial y gestión ambiental, con experiencia en 
+          <p class="text-base text-white/60 leading-relaxed mb-6">
+            Esta red incluye profesionales con trayectoria en derecho, economía, ciencias políticas,
+            comunicación estratégica, desarrollo territorial y gestión ambiental, con experiencia en
             sectores públicos, privados y organismos multilaterales.
           </p>
-          <div class="border-l-[3px] border-corp pl-6 bg-white rounded py-4">
-            <p class="text-base text-gris leading-relaxed">
-              <strong class="text-negro font-medium">Nuestro modelo de trabajo colaborativo</strong> nos permite 
-              ofrecer soluciones integrales sin comprometer la calidad técnica ni la agilidad operativa, 
+          <div class="border-l-[3px] border-medio pl-6 py-2">
+            <p class="text-base text-white/70 leading-relaxed">
+              <strong class="text-white font-medium">Nuestro modelo de trabajo colaborativo</strong> nos permite
+              ofrecer soluciones integrales sin comprometer la calidad técnica ni la agilidad operativa,
               adaptándonos a las necesidades específicas de cada cliente y proyecto.
             </p>
           </div>

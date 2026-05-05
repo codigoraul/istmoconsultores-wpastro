@@ -1,20 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Contacto — Istmo Consultores">
   <Header />
   <main>
-    <section class="bg-marino py-10">
-      <div class="container">
-        <h1 class="text-3xl font-medium text-white mb-2">Contacto</h1>
-        <p class="text-sm text-cielo max-w-2xl">
-          Conversemos sobre tu proyecto
-        </p>
-      </div>
-    </section>
+    <PageHero
+      title="Contacto"
+      subtitle="Conversemos sobre tu proyecto"
+      image="/images/title-contacto.webp" 
+    />
 
     <section class="bg-white py-20">
       <div class="container">
