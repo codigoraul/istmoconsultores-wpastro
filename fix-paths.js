@@ -42,6 +42,9 @@ async function fixPaths(dir, baseDir = './dist') {
         content = content.replace(/href="\/sectores"/g, 'href="./sectores/"');
         content = content.replace(/href="\/contacto"/g, 'href="./contacto/"');
         content = content.replace(/href="\/"/g, 'href="./"');
+        
+        // Links con anchors
+        content = content.replace(/href="\/servicios#/g, 'href="./servicios/#');
       } else {
         // páginas internas
         content = content.replace(/href="\/nosotros"/g, 'href="../nosotros/"');
@@ -50,6 +53,9 @@ async function fixPaths(dir, baseDir = './dist') {
         content = content.replace(/href="\/sectores"/g, 'href="../sectores/"');
         content = content.replace(/href="\/contacto"/g, 'href="../contacto/"');
         content = content.replace(/href="\/"/g, 'href="../"');
+        
+        // Links con anchors
+        content = content.replace(/href="\/servicios#/g, 'href="../servicios/#');
       }
       
       await writeFile(fullPath, content, 'utf-8');
