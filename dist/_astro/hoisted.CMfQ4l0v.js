@@ -1,0 +1,1 @@
+const t=document.getElementById("burger"),e=document.getElementById("mobile-menu");t.addEventListener("click",()=>{e.style.maxHeight&&e.style.maxHeight!=="0px"?(e.style.maxHeight="0px",t.setAttribute("aria-expanded","false")):(e.style.maxHeight=e.scrollHeight+"px",t.setAttribute("aria-expanded","true"))});
