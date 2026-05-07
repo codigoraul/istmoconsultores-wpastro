@@ -12,15 +12,24 @@ try {
   const response = await fetch(WP_API_URL);
   if (response.ok) {
     posts = await response.json();
+    console.log('=== DEBUG POSTS ===');
+    console.log('Total posts:', posts.length);
+    if (posts.length > 0) {
+      console.log('Primer post featured_media ID:', posts[0].featured_media);
+      console.log('Tiene _embedded?:', !!posts[0]._embedded);
+      console.log('Tiene wp:featuredmedia?:', !!posts[0]._embedded?.['wp:featuredmedia']);
+    }
     
     // Fetch images for each post if _embed doesn't work
     for (const post of posts) {
       if (post.featured_media && !post._embedded?.['wp:featuredmedia']) {
         try {
+          console.log('Fetching media for post:', post.slug, 'Media ID:', post.featured_media);
           const mediaResponse = await fetch(`https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`);
           if (mediaResponse.ok) {
             const media = await mediaResponse.json();
             post.featured_image_url = media.source_url;
+            console.log('Image URL:', media.source_url);
           }
         } catch (err) {
           console.error('Error fetching media:', err);
