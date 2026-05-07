@@ -53,7 +53,7 @@ async function fixPaths(dir, baseDir = './dist') {
       content = content.replace(/href="\/"/g, `href="${basePrefix}"`);
       
       // Links con anchors
-      content = content.replace(/href="\/servicios#/g, `href="${basePrefix}servicios/#`);
+      content = content.replace(/href="\/servicios\/#/g, `href="${basePrefix}servicios/#`);
       
       await writeFile(fullPath, content, 'utf-8');
       console.log(`✓ Fixed (depth ${depth}): ${fullPath}`);
