@@ -105,17 +105,11 @@ const featuredImage = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
                 <h1 class="font-serif text-2xl md:text-3xl font-medium text-negro mb-2 leading-tight">
                   {post.title.rendered}
                 </h1>
-                <div class="flex items-center gap-3 text-sm text-gris mb-6">
-                  <span>{new Date(post.date).toLocaleDateString('es-ES', {
-                    year: 'numeric', month: 'long', day: 'numeric'
-                  })}</span>
-                  {post._embedded?.['wp:term']?.[0]?.[0] && (
-                    <>
-                      <span>•</span>
-                      <span class="text-corp">{post._embedded['wp:term'][0][0].name}</span>
-                    </>
-                  )}
-                </div>
+                {post._embedded?.['wp:term']?.[0]?.[0] && (
+                  <div class="text-sm text-corp mb-6">
+                    {post._embedded['wp:term'][0][0].name}
+                  </div>
+                )}
 
                 <hr class="border-gray-200 mb-6" />
 

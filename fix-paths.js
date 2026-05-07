@@ -24,6 +24,7 @@ async function fixPaths(dir, baseDir = './dist') {
       content = content.replace(/src="\/images\//g, 'src="images/');
       content = content.replace(/href="\/logo-/g, 'href="logo-');
       content = content.replace(/src="\/logo-/g, 'src="logo-');
+      content = content.replace(/href="\/favicon\.png"/g, 'href="favicon.png"');
       
       // Ahora agregar el prefijo correcto según profundidad
       content = content.replace(/href="_astro\//g, `href="${prefix}_astro/`);
@@ -32,6 +33,7 @@ async function fixPaths(dir, baseDir = './dist') {
       content = content.replace(/src="images\//g, `src="${prefix}images/`);
       content = content.replace(/href="logo-/g, `href="${prefix}logo-`);
       content = content.replace(/src="logo-/g, `src="${prefix}logo-`);
+      content = content.replace(/href="favicon\.png"/g, `href="${prefix}favicon.png"`);
       
       // Calcular ruta base relativa (siempre volver a la raíz de dist)
       const basePrefix = depth === 0 ? './' : '../'.repeat(depth);
