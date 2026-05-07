@@ -9,48 +9,105 @@ const servicios = [
     id: 'estrategia',
     num: '01',
     title: 'Estrategia Pública y Reputacional',
-    intro: 'Diseñamos estrategias de relacionamiento institucional y comunicación que permiten desenvolverse de manera legítima y efectiva en entornos político-regulatorios complejos.',
-    descripcion: 'En contextos donde las decisiones políticas, regulatorias y sociales determinan la viabilidad de proyectos e iniciativas, es fundamental contar con una estrategia de relacionamiento público-privado que anticipe riesgos, identifique oportunidades y construya legitimidad. Nuestro enfoque combina análisis político, monitoreo regulatorio y gestión reputacional para posicionar a nuestros clientes de manera coherente y efectiva ante autoridades, organismos multilaterales y la opinión pública.',
-    items: [
-      'Diseño de estrategias de relacionamiento público-privado',
-      'Monitoreo y análisis legislativo y regulatorio',
-      'Análisis prospectivo del entorno político y económico',
-      'Mapeo y perfilamiento de stakeholders',
-      'Posicionamiento ante autoridades y organismos multilaterales',
-      'Diagnósticos reputacionales y gestión de crisis',
-      'Monitoreo de marca en entornos digitales',
+    subareas: [
+      {
+        id: 'asuntos-publicos',
+        title: 'Asuntos Públicos',
+        descripcion: 'Diseñamos e implementamos estrategias de relacionamiento institucional que permiten a nuestros clientes desenvolverse de manera legítima, transparente y efectiva en su entorno político y regulatorio.',
+        items: [
+          'Diseño de estrategias de relacionamiento público-privado.',
+          'Monitoreo y análisis legislativo y regulatorio.',
+          'Análisis prospectivo del entorno político, social y económico.',
+          'Mapeo, segmentación y perfilamiento de stakeholders.',
+          'Posicionamiento institucional ante autoridades y organismos multilaterales.',
+        ],
+      },
+      {
+        id: 'comunicacion-estrategica',
+        title: 'Comunicación Estratégica',
+        descripcion: 'Acompañamos a las organizaciones en la construcción, protección y recuperación de su reputación institucional, integrando análisis avanzado de datos y monitoreo inteligente del entorno digital.',
+        items: [
+          'Diagnósticos reputacionales.',
+          'Monitoreo y mapeo de marca en entornos digitales.',
+          'Diseño de estrategias comunicacionales integrales.',
+          'Gestión y preparación ante escenarios de crisis.',
+          'Desarrollo de vocerías y mensajes estratégicos.',
+          'Alineamiento comunicacional interno y externo.',
+        ],
+      },
     ],
   },
   {
     id: 'innovacion',
     num: '02',
     title: 'Innovación Institucional y Corporativa',
-    intro: 'Fortalecemos marcos de cumplimiento, integridad y gobernanza, acompañando procesos de transformación con coherencia entre estrategia, cultura y comunicación.',
-    descripcion: 'Las organizaciones enfrentan crecientes exigencias en materia de integridad, transparencia y gobernanza. Más allá del cumplimiento formal, se requiere construir culturas institucionales sólidas que alineen valores, prácticas y comunicación. Acompañamos procesos de cambio organizacional, diseñamos modelos de prevención y cumplimiento, y fortalecemos capacidades internas para operar con estándares de integridad que generen confianza y sostenibilidad.',
-    items: [
-      'Diagnóstico de riesgos de compliance y gobernanza',
-      'Diseño de modelos de prevención y cumplimiento',
-      'Códigos de ética y conducta institucional',
-      'Protocolos de relacionamiento con stakeholders',
-      'Capacitación en integridad y estándares ESG',
-      'Acompañamiento en cambio organizacional',
-      'Planes de comunicación interna',
+    subareas: [
+      {
+        id: 'compliance',
+        title: 'Compliance y Gobernanza',
+        descripcion: 'Fortalecemos los marcos de cumplimiento, integridad y gobernanza institucional de cada organización, alineados con estándares nacionales e internacionales.',
+        items: [
+          'Diagnóstico de riesgos de compliance y gobernanza.',
+          'Diseño de modelos de prevención y cumplimiento.',
+          'Elaboración y actualización de códigos de ética y conducta.',
+          'Protocolos de relacionamiento con autoridades y stakeholders.',
+          'Capacitación en integridad y estándares ESG.',
+        ],
+      },
+      {
+        id: 'cambio-organizacional',
+        title: 'Cambio Organizacional y Formación Corporativa',
+        descripcion: 'Acompañamos procesos de transformación institucional, asegurando coherencia entre estrategia, cultura organizacional y comunicación.',
+        items: [
+          'Diagnósticos organizacionales.',
+          'Gestión y acompañamiento en procesos de cambio organizacional.',
+          'Diseño de planes de comunicación interna.',
+          'Talleres de alineamiento estratégico y cultural.',
+          'Elaboración de protocolos institucionales.',
+          'Diseño e implementación de modelos de evaluación de desempeño y formación por competencias.',
+        ],
+      },
     ],
   },
   {
     id: 'proyectos',
     num: '03',
     title: 'Desarrollo y Viabilidad de Proyectos',
-    intro: 'Apoyamos la estructuración de proyectos de inversión, implementamos estrategias territoriales y acompañamos a las organizaciones en la optimización de su capital.',
-    descripcion: 'El éxito de un proyecto de inversión no depende solo de su viabilidad técnica o económica, sino de su capacidad para insertarse de manera legítima en un territorio y un entorno regulatorio. Acompañamos la estructuración integral de proyectos, evaluamos riesgos político-regulatorios y territoriales, y diseñamos estrategias de relacionamiento comunitario que fortalezcan la licencia social. Además, asesoramos en modelos asociativos, inversiones tradicionales y DeFi, y en el diseño de programas de impacto socioeconómico territorial.',
-    items: [
-      'Estructuración integral de proyectos de inversión',
-      'Modelamiento de negocios y viabilidad económica',
-      'Evaluación de riesgos regulatorios y territoriales',
-      'Estrategias de relacionamiento comunitario',
-      'Diseño y fortalecimiento de modelos asociativos',
-      'Asesoría en inversiones tradicionales y DeFi',
-      'Programas de impacto socioeconómico territorial',
+    subareas: [
+      {
+        id: 'formulacion',
+        title: 'Formulación y Evaluación de Proyectos',
+        descripcion: 'Apoyamos la estructuración de proyectos de inversión públicos y privados mediante análisis técnico, económico, financiero, regulatorio y estratégico.',
+        items: [
+          'Estructuración integral de proyectos de inversión social y privada.',
+          'Modelamiento de negocios y análisis de viabilidad económica.',
+          'Evaluación de riesgos regulatorios, territoriales y comerciales.',
+          'Análisis de sensibilidad y mitigación de riesgos.',
+          'Gestión de financiamiento.',
+        ],
+      },
+      {
+        id: 'desarrollo-territorial',
+        title: 'Desarrollo Territorial y Relaciones Comunitarias',
+        descripcion: 'Implementamos estrategias en el territorio, facilitando la viabilidad social e institucional de los proyectos e incluyendo el fortalecimiento de economías locales con modelos asociativos.',
+        items: [
+          'Estrategias de relacionamiento comunitario para proyectos mineros, energéticos, agrícolas, inmobiliarios y de infraestructura.',
+          'Impulso del desarrollo económico local mediante la articulación entre Estado, empresas y comunidades.',
+          'Diseño y fortalecimiento de modelos asociativos (incluyendo cooperativas productivas y territoriales).',
+          'Programas de capacitación por competencias para comunidades.',
+          'Diseño de programas de impacto socioeconómico territorial.',
+        ],
+      },
+      {
+        id: 'inversiones',
+        title: 'Estrategia y Viabilidad de Inversiones',
+        descripcion: 'Acompañamos a las organizaciones en la estructuración, protección y optimización de su capital, integrando análisis de riesgo tradicional con herramientas de la economía digital.',
+        items: [
+          'Asesoría en inversiones tradicionales y estructuración de portafolios.',
+          'Estrategias en Finanzas Descentralizadas (DeFi) y gestión de activos digitales, incluyendo operación en exchanges descentralizados (DEX), provisión de liquidez y optimización de rendimientos (yield farming).',
+          'Desarrollo de contenidos para relacionamiento con inversionistas.',
+        ],
+      },
     ],
   },
 ];
@@ -67,6 +124,14 @@ const servicios = [
     />
     </section>
 
+    <section class="bg-white py-10 border-b border-gray-100">
+      <div class="container">
+        <p class="text-base text-gris leading-relaxed max-w-3xl">
+          El trabajo de Istmo Consultores se estructura en tres pilares estratégicos, integrando análisis político, regulación, comunicación, desarrollo territorial y gestión de proyectos.
+        </p>
+      </div>
+    </section>
+
     {servicios.map((svc, index) => (
       <section id={svc.id} class={`relative overflow-hidden py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-fondo'}`}>
         {index === 1 && (
@@ -75,23 +140,25 @@ const servicios = [
           </div>
         )}
         <div class="container relative z-10">
-          <div class="max-w-4xl">
-            <span class="text-[11px] text-medio font-medium tracking-widest block mb-2">{svc.num}</span>
-            <h2 class="text-2xl md:text-3xl font-medium text-negro leading-tight mb-4">{svc.title}</h2>
-            <p class="text-lg text-negro leading-relaxed mb-6 font-medium">{svc.intro}</p>
-            <p class="text-base text-gris leading-relaxed mb-8">{svc.descripcion}</p>
+          <span class="text-[11px] text-medio font-medium tracking-widest block mb-2">{svc.num}</span>
+          <h2 class="text-2xl md:text-3xl font-medium text-negro leading-tight mb-8">{svc.title}</h2>
 
-            <div class="border-l-[3px] border-corp pl-6 bg-white rounded py-4">
-              <h3 class="text-base font-medium text-negro mb-4">Servicios específicos</h3>
-              <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {svc.items.map(item => (
-                  <li class="flex items-start gap-2.5 text-base text-gris leading-snug">
-                    <span class="w-1.5 h-1.5 rounded-full bg-medio flex-shrink-0 mt-1.5"></span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {svc.subareas.map(sub => (
+              <div id={sub.id} class="bg-white border border-gray-200 border-t-[3px] border-t-corp rounded p-6 flex flex-col gap-4">
+                <h3 class="text-lg font-semibold text-negro leading-snug">{sub.title}</h3>
+                <p class="text-[13px] text-gris leading-relaxed">{sub.descripcion}</p>
+                <p class="text-[11px] font-semibold text-negro tracking-widest uppercase mt-2">Servicios</p>
+                <ul class="flex flex-col gap-2 flex-1">
+                  {sub.items.map(item => (
+                    <li class="flex items-start gap-2 text-[13px] text-gris leading-snug">
+                      <span class="w-1.5 h-1.5 rounded-full bg-medio flex-shrink-0 mt-1.5"></span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -5,14 +5,9 @@ const services = [
     id: 'estrategia',
     title: 'Estrategia Pública y Reputacional',
     description: 'Diseñamos estrategias de relacionamiento institucional y comunicación que permiten desenvolverse de manera legítima y efectiva en entornos político-regulatorios complejos.',
-    items: [
-      'Diseño de estrategias de relacionamiento público-privado',
-      'Monitoreo y análisis legislativo y regulatorio',
-      'Análisis prospectivo del entorno político y económico',
-      'Mapeo y perfilamiento de stakeholders',
-      'Posicionamiento ante autoridades y organismos multilaterales',
-      'Diagnósticos reputacionales y gestión de crisis',
-      'Monitoreo de marca en entornos digitales',
+    subareas: [
+      'Asuntos Públicos',
+      'Comunicación Estratégica',
     ],
   },
   {
@@ -20,14 +15,9 @@ const services = [
     id: 'innovacion',
     title: 'Innovación Institucional y Corporativa',
     description: 'Fortalecemos marcos de cumplimiento, integridad y gobernanza, acompañando procesos de transformación con coherencia entre estrategia, cultura y comunicación.',
-    items: [
-      'Diagnóstico de riesgos de compliance y gobernanza',
-      'Diseño de modelos de prevención y cumplimiento',
-      'Códigos de ética y conducta institucional',
-      'Protocolos de relacionamiento con stakeholders',
-      'Capacitación en integridad y estándares ESG',
-      'Acompañamiento en cambio organizacional',
-      'Planes de comunicación interna',
+    subareas: [
+      'Compliance y Gobernanza',
+      'Cambio Organizacional y Formación Corporativa',
     ],
   },
   {
@@ -35,14 +25,10 @@ const services = [
     id: 'proyectos',
     title: 'Desarrollo y Viabilidad de Proyectos',
     description: 'Apoyamos la estructuración de proyectos de inversión, implementamos estrategias territoriales y acompañamos a las organizaciones en la optimización de su capital.',
-    items: [
-      'Estructuración integral de proyectos de inversión',
-      'Modelamiento de negocios y viabilidad económica',
-      'Evaluación de riesgos regulatorios y territoriales',
-      'Estrategias de relacionamiento comunitario',
-      'Diseño y fortalecimiento de modelos asociativos',
-      'Asesoría en inversiones tradicionales y DeFi',
-      'Programas de impacto socioeconómico territorial',
+    subareas: [
+      'Formulación y Evaluación de Proyectos',
+      'Desarrollo Territorial y Relaciones Comunitarias',
+      'Estrategia y Viabilidad de Inversiones',
     ],
   },
 ];
@@ -60,17 +46,16 @@ const services = [
             <span class="text-[11px] text-medio font-medium tracking-widest block mb-2">{svc.num}</span>
             <h3 class="text-lg font-medium text-negro leading-snug">{svc.title}</h3>
           </div>
-          <p class="text-[13px] text-gris leading-relaxed">{svc.description}</p>
           <ul class="flex flex-col gap-2 flex-1">
-            {svc.items.map(item => (
-              <li class="flex items-start gap-2 text-[13px] text-gris leading-snug">
-                <span class="w-1.5 h-1.5 rounded-full bg-medio flex-shrink-0 mt-1.5"></span>
-                {item}
+            {svc.subareas.map(area => (
+              <li class="flex items-start gap-2 text-[13px] text-negro font-medium leading-snug">
+                <span class="w-1.5 h-1.5 rounded-full bg-corp flex-shrink-0 mt-1.5"></span>
+                {area}
               </li>
             ))}
           </ul>
-          <a href={`/servicios#${svc.id}`} class="text-[13px] text-corp font-medium hover:text-marino transition-colors mt-2">
-            Ver más →
+          <a href={`/servicios/#${svc.id}`} class="text-[13px] text-corp font-medium hover:text-marino transition-colors mt-2">
+            Ver detalle completo →
           </a>
         </article>
       ))}
