@@ -15,6 +15,19 @@ try {
   if (response.ok) {
     const posts = await response.json();
     post = posts[0] || null;
+    
+    // Fetch image if _embed doesn't work
+    if (post && post.featured_media && !post._embedded?.['wp:featuredmedia']) {
+      try {
+        const mediaResponse = await fetch(`https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`);
+        if (mediaResponse.ok) {
+          const media = await mediaResponse.json();
+          post.featured_image_url = media.source_url;
+        }
+      } catch (err) {
+        console.error('Error fetching media:', err);
+      }
+    }
   }
 } catch (e) {
   error = 'No se pudo cargar la noticia';
@@ -24,7 +37,7 @@ try {
 // Get all posts for static generation
 export async function getStaticPaths() {
   try {
-    const response = await fetch('https://istmoconsultores.cl/admin/wp-json/wp/v2/posts');
+    const response = await fetch('https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?_embed');
     const posts = await response.json();
     
     return posts.map((post: any) => ({
@@ -36,7 +49,7 @@ export async function getStaticPaths() {
   }
 }
 
-const featuredImage = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+const featuredImage = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url || post?.featured_image_url;
 ---
 
 <Layout title={post ? `${post.title.rendered} — Istmo Consultores` : 'Noticia — Istmo Consultores'}>
@@ -75,7 +88,7 @@ const featuredImage = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url;
                 <h1 class="font-serif text-4xl md:text-5xl font-medium text-negro mb-4 leading-tight">
                   {post.title.rendered}
                 </h1>
-                <div class="flex items-center gap-4 text-sm text-gris mb-6">
+                <div class="flex items-center gap-4 text-sm text-gris">
                   <span>{new Date(post.date).toLocaleDateString('es-ES', { 
                     year: 'numeric', 
                     month: 'long', 
@@ -88,7 +101,6 @@ const featuredImage = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url;
                     </>
                   )}
                 </div>
-                <div class="text-lg text-gris leading-relaxed" set:html={post.excerpt.rendered} />
               </div>
             </div>
           </div>

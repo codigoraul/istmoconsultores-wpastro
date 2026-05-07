@@ -12,6 +12,21 @@ try {
   const response = await fetch(WP_API_URL);
   if (response.ok) {
     posts = await response.json();
+    
+    // Fetch images for each post if _embed doesn't work
+    for (const post of posts) {
+      if (post.featured_media && !post._embedded?.['wp:featuredmedia']) {
+        try {
+          const mediaResponse = await fetch(`https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`);
+          if (mediaResponse.ok) {
+            const media = await mediaResponse.json();
+            post.featured_image_url = media.source_url;
+          }
+        } catch (err) {
+          console.error('Error fetching media:', err);
+        }
+      }
+    }
   }
 } catch (e) {
   error = 'No se pudieron cargar las noticias';
@@ -47,11 +62,13 @@ try {
 
         {posts.length > 0 && (
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post: any) => (
+            {posts.map((post: any) => {
+              const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.featured_image_url;
+              return (
               <article class="border border-gray-200 rounded overflow-hidden hover:shadow-lg transition-shadow">
-                {post._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+                {imageUrl && (
                   <img 
-                    src={post._embedded['wp:featuredmedia'][0].source_url} 
+                    src={imageUrl} 
                     alt={post.title.rendered}
                     class="w-full h-48 object-cover"
                   />
@@ -68,7 +85,8 @@ try {
                   </a>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
