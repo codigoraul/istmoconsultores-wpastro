@@ -57,10 +57,14 @@ const team = [
       <div class="container">
         <p class="eyebrow">Equipo directivo</p>
         <h2 class="section-title">Liderazgo con visión estratégica</h2>
-        <p class="text-base text-gris leading-relaxed max-w-2xl mb-10">
-          La firma opera bajo un modelo ágil que combina un núcleo directivo con una red de 
-          especialistas asociados en América Latina y el Caribe.
-        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <p class="text-sm text-gris leading-relaxed">
+            El principal activo de Istmo Consultores es el criterio estratégico, la experiencia y la capacidad analítica de su equipo. La firma opera bajo un modelo ágil que combina un núcleo directivo con una red de especialistas asociados en América Latina y el Caribe.
+          </p>
+          <p class="text-sm text-gris leading-relaxed">
+            El equipo directivo integra experiencia en organismos internacionales, gestión legislativa, regulación pública, comunicación estratégica, desarrollo territorial y estructuración de proyectos de inversión, permitiendo abordar desafíos complejos desde una perspectiva multidisciplinaria y orientada a resultados.
+          </p>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {team.map(m => (
@@ -73,10 +77,26 @@ const team = [
               <div class="p-6">
                 <h3 class="text-lg font-medium text-negro mb-1">{m.name}</h3>
                 <p class="text-[11px] text-corp uppercase tracking-wide font-medium mb-4">{m.role}</p>
-                <p class="text-base text-gris leading-relaxed">{m.bioCompleta}</p>
+                <p class="text-[15px] text-gris leading-relaxed">{m.bioCompleta}</p>
               </div>
             </article>
           ))}
+
+          <!-- Tarjeta Red de Expertos Asociados -->
+          <article class="bg-marino border border-marino rounded overflow-hidden hover:shadow-md transition-shadow">
+            <div class="h-20 bg-negro/30 flex items-center justify-center">
+              <div class="w-12 h-12 rounded-full border-2 border-cielo flex items-center justify-center text-base font-medium text-cielo">
+                ✦
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-medium text-white mb-1">Red de Expertos Asociados</h3>
+              <p class="text-[11px] text-cielo uppercase tracking-wide font-medium mb-4">Red especializada</p>
+              <p class="text-base text-white/75 leading-relaxed">
+                Istmo Consultores cuenta con una red de profesionales senior que se integran a los proyectos según sus requerimientos específicos, permitiendo escalar capacidades y responder con flexibilidad a cada encargo y contexto.
+              </p>
+            </div>
+          </article>
         </div>
       </div>
     </section>

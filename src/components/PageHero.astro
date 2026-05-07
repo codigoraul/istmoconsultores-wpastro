@@ -4,9 +4,10 @@ interface Props {
   subtitle?: string;
   variant?: 'edificios' | 'reunion' | 'geometrico';
   image?: string;
+  overlayOpacity?: number;
 }
 
-const { title, subtitle, variant = 'edificios', image } = Astro.props;
+const { title, subtitle, variant = 'edificios', image, overlayOpacity } = Astro.props;
 
 const variants = {
   edificios: {
@@ -23,9 +24,12 @@ const variants = {
   },
 };
 
+const baseOverlay = variants[variant].overlay;
 const v = {
   image: image ?? variants[variant].image,
-  overlay: variants[variant].overlay,
+  overlay: overlayOpacity !== undefined && baseOverlay
+    ? baseOverlay.replace(/[\d.]+\)$/, `${overlayOpacity})`)
+    : baseOverlay,
 };
 ---
 
