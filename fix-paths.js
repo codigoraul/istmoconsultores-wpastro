@@ -36,10 +36,12 @@ async function fixPaths(dir, baseDir = './dist') {
       // Cambiar links internos según profundidad
       if (depth === 0) {
         // index.html en raíz
-        content = content.replace(/href="\/nosotros"/g, 'href="./nosotros/"');
-        content = content.replace(/href="\/servicios"/g, 'href="./servicios/"');
-        content = content.replace(/href="\/equipo"/g, 'href="./equipo/"');
-        content = content.replace(/href="\/sectores"/g, 'href="./sectores/"');
+        content = content.replace(/href="\/nosotros\/"/g, 'href="./nosotros/"');
+        content = content.replace(/href="\/servicios\/"/g, 'href="./servicios/"');
+        content = content.replace(/href="\/equipo\/"/g, 'href="./equipo/"');
+        content = content.replace(/href="\/noticias\/"/g, 'href="./noticias/"');
+        content = content.replace(/href="\/sectores\/"/g, 'href="./sectores/"');
+        content = content.replace(/href="\/contacto\/"/g, 'href="./contacto/"');
         content = content.replace(/href="\/contacto"/g, 'href="./contacto/"');
         content = content.replace(/href="\/"/g, 'href="./"');
         
@@ -47,10 +49,12 @@ async function fixPaths(dir, baseDir = './dist') {
         content = content.replace(/href="\/servicios#/g, 'href="./servicios/#');
       } else {
         // páginas internas
-        content = content.replace(/href="\/nosotros"/g, 'href="../nosotros/"');
-        content = content.replace(/href="\/servicios"/g, 'href="../servicios/"');
-        content = content.replace(/href="\/equipo"/g, 'href="../equipo/"');
-        content = content.replace(/href="\/sectores"/g, 'href="../sectores/"');
+        content = content.replace(/href="\/nosotros\/"/g, 'href="../nosotros/"');
+        content = content.replace(/href="\/servicios\/"/g, 'href="../servicios/"');
+        content = content.replace(/href="\/equipo\/"/g, 'href="../equipo/"');
+        content = content.replace(/href="\/noticias\/"/g, 'href="../noticias/"');
+        content = content.replace(/href="\/sectores\/"/g, 'href="../sectores/"');
+        content = content.replace(/href="\/contacto\/"/g, 'href="../contacto/"');
         content = content.replace(/href="\/contacto"/g, 'href="../contacto/"');
         content = content.replace(/href="\/"/g, 'href="../"');
         
