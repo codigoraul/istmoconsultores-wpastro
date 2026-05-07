@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Fetch posts from WordPress API
+const WP_API_URL = 'https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?_embed';
+let posts: any[] = [];
+let error: string | null = null;
+
+try {
+  const response = await fetch(WP_API_URL);
+  if (response.ok) {
+    posts = await response.json();
+  }
+} catch (e) {
+  error = 'No se pudieron cargar las noticias';
+  console.error(e);
+}
+---
+
+<Layout title="Noticias — Istmo Consultores">
+  <Header />
+  <main>
+    <!-- Breadcrumb -->
+    <section class="bg-marino py-16">
+      <div class="container">
+        <h1 class="font-serif text-4xl md:text-5xl font-medium text-white mb-3">Noticias</h1>
+        <p class="text-cielo text-base">Actualidad, análisis y perspectivas estratégicas</p>
+      </div>
+    </section>
+
+    <!-- Grid de noticias -->
+    <section class="bg-white py-20">
+      <div class="container">
+        {error && (
+          <div class="max-w-4xl mx-auto text-center">
+            <p class="text-base text-gris">{error}</p>
+          </div>
+        )}
+
+        {!error && posts.length === 0 && (
+          <div class="max-w-4xl mx-auto text-center">
+            <p class="text-base text-gris">No hay noticias publicadas aún.</p>
+          </div>
+        )}
+
+        {posts.length > 0 && (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post: any) => (
+              <article class="border border-gray-200 rounded overflow-hidden hover:shadow-lg transition-shadow">
+                {post._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+                  <img 
+                    src={post._embedded['wp:featuredmedia'][0].source_url} 
+                    alt={post.title.rendered}
+                    class="w-full h-48 object-cover"
+                  />
+                )}
+                <div class="p-6">
+                  <h2 class="font-serif text-xl font-medium text-negro mb-3 leading-snug">
+                    <a href={`/noticias/${post.slug}/`} class="hover:text-corp transition-colors">
+                      {post.title.rendered}
+                    </a>
+                  </h2>
+                  <div class="text-sm text-gris mb-4" set:html={post.excerpt.rendered} />
+                  <a href={`/noticias/${post.slug}/`} class="text-sm text-corp font-medium hover:text-marino transition-colors">
+                    Leer más →
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
