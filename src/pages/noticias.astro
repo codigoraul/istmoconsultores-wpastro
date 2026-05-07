@@ -65,7 +65,7 @@ try {
             {posts.map((post: any) => {
               const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.featured_image_url;
               return (
-              <article class="border border-gray-200 rounded overflow-hidden hover:shadow-lg transition-shadow">
+              <article class="border border-gray-200 rounded overflow-hidden hover:shadow-lg transition-shadow bg-white">
                 {imageUrl && (
                   <img 
                     src={imageUrl} 
@@ -79,7 +79,11 @@ try {
                       {post.title.rendered}
                     </a>
                   </h2>
-                  <div class="text-sm text-gris mb-4" set:html={post.excerpt.rendered} />
+                  <div 
+                    class="text-sm text-gris mb-4 line-clamp-5" 
+                    style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;"
+                    set:html={post.excerpt.rendered} 
+                  />
                   <a href={`/noticias/${post.slug}/`} class="text-sm text-corp font-medium hover:text-marino transition-colors">
                     Leer más →
                   </a>
