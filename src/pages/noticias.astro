@@ -2,37 +2,45 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
 
-// Fetch posts from WordPress API
-const WP_API_URL = 'https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?_embed';
+// Credenciales WordPress (Application Password)
+const WP_USER = import.meta.env.WP_USER;
+const WP_APP_PASSWORD = import.meta.env.WP_APP_PASSWORD;
+const authHeader = WP_USER && WP_APP_PASSWORD
+  ? 'Basic ' + btoa(`${WP_USER}:${WP_APP_PASSWORD}`)
+  : '';
+
+const WP_API_URL = 'https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?_embed&per_page=20';
 let posts: any[] = [];
 let error: string | null = null;
 
 try {
-  const response = await fetch(WP_API_URL);
+  const response = await fetch(WP_API_URL, {
+    headers: authHeader ? { 'Authorization': authHeader } : {}
+  });
   if (response.ok) {
     posts = await response.json();
-    console.log('=== DEBUG POSTS ===');
-    console.log('Total posts:', posts.length);
-    if (posts.length > 0) {
-      console.log('Primer post featured_media ID:', posts[0].featured_media);
-      console.log('Tiene _embedded?:', !!posts[0]._embedded);
-      console.log('Tiene wp:featuredmedia?:', !!posts[0]._embedded?.['wp:featuredmedia']);
-    }
-    
-    // Fetch images for each post if _embed doesn't work
+
+    // Para cada post, obtener imagen con auth si _embed la bloqueó
     for (const post of posts) {
-      if (post.featured_media && !post._embedded?.['wp:featuredmedia']) {
-        try {
-          console.log('Fetching media for post:', post.slug, 'Media ID:', post.featured_media);
-          const mediaResponse = await fetch(`https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`);
-          if (mediaResponse.ok) {
-            const media = await mediaResponse.json();
-            post.featured_image_url = media.source_url;
-            console.log('Image URL:', media.source_url);
+      if (post.featured_media) {
+        const embeddedMedia = post._embedded?.['wp:featuredmedia']?.[0];
+        const hasError = !embeddedMedia || embeddedMedia?.code === 'rest_forbidden' || !embeddedMedia?.source_url;
+
+        if (hasError) {
+          try {
+            const mediaResponse = await fetch(
+              `https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`,
+              { headers: authHeader ? { 'Authorization': authHeader } : {} }
+            );
+            if (mediaResponse.ok) {
+              const media = await mediaResponse.json();
+              post.featured_image_url = media.source_url;
+            }
+          } catch (err) {
+            console.error('Error fetching media:', err);
           }
-        } catch (err) {
-          console.error('Error fetching media:', err);
         }
       }
     }
@@ -46,13 +54,11 @@ try {
 <Layout title="Noticias — Istmo Consultores">
   <Header />
   <main>
-    <!-- Breadcrumb -->
-    <section class="bg-marino py-16">
-      <div class="container">
-        <h1 class="font-serif text-4xl md:text-5xl font-medium text-white mb-3">Noticias</h1>
-        <p class="text-cielo text-base">Actualidad, análisis y perspectivas estratégicas</p>
-      </div>
-    </section>
+    <PageHero
+      title="Noticias"
+      subtitle="Actualidad, análisis y perspectivas estratégicas"
+      variant="reunion"
+    />
 
     <!-- Grid de noticias -->
     <section class="bg-white py-20">

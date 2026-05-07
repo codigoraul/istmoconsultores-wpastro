@@ -3,29 +3,45 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
-const { slug } = Astro.params;
+// Credenciales WordPress (Application Password)
+const WP_USER = import.meta.env.WP_USER;
+const WP_APP_PASSWORD = import.meta.env.WP_APP_PASSWORD;
+const authHeader = WP_USER && WP_APP_PASSWORD
+  ? 'Basic ' + btoa(`${WP_USER}:${WP_APP_PASSWORD}`)
+  : '';
 
-// Fetch post from WordPress API
-const WP_API_URL = `https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?slug=${slug}&_embed`;
+const fetchOpts = { headers: authHeader ? { 'Authorization': authHeader } : {} };
+
+const { slug } = Astro.params;
 let post: any = null;
 let error: string | null = null;
 
 try {
-  const response = await fetch(WP_API_URL);
+  const response = await fetch(
+    `https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?slug=${slug}&_embed`,
+    fetchOpts
+  );
   if (response.ok) {
     const posts = await response.json();
     post = posts[0] || null;
-    
-    // Fetch image if _embed doesn't work
-    if (post && post.featured_media && !post._embedded?.['wp:featuredmedia']) {
-      try {
-        const mediaResponse = await fetch(`https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`);
-        if (mediaResponse.ok) {
-          const media = await mediaResponse.json();
-          post.featured_image_url = media.source_url;
+
+    if (post && post.featured_media) {
+      const embeddedMedia = post._embedded?.['wp:featuredmedia']?.[0];
+      const hasError = !embeddedMedia || embeddedMedia?.code === 'rest_forbidden' || !embeddedMedia?.source_url;
+
+      if (hasError) {
+        try {
+          const mediaResponse = await fetch(
+            `https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`,
+            fetchOpts
+          );
+          if (mediaResponse.ok) {
+            const media = await mediaResponse.json();
+            post.featured_image_url = media.source_url;
+          }
+        } catch (err) {
+          console.error('Error fetching media:', err);
         }
-      } catch (err) {
-        console.error('Error fetching media:', err);
       }
     }
   }
@@ -36,15 +52,21 @@ try {
 
 // Get all posts for static generation
 export async function getStaticPaths() {
+  const WP_USER = import.meta.env.WP_USER;
+  const WP_APP_PASSWORD = import.meta.env.WP_APP_PASSWORD;
+  const authHeader = WP_USER && WP_APP_PASSWORD
+    ? 'Basic ' + btoa(`${WP_USER}:${WP_APP_PASSWORD}`)
+    : '';
+
   try {
-    const response = await fetch('https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?_embed');
+    const response = await fetch(
+      'https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?per_page=100',
+      { headers: authHeader ? { 'Authorization': authHeader } : {} }
+    );
     const posts = await response.json();
-    
-    return posts.map((post: any) => ({
-      params: { slug: post.slug },
-    }));
+    return posts.map((post: any) => ({ params: { slug: post.slug } }));
   } catch (e) {
-    console.error('Error fetching posts:', e);
+    console.error('Error fetching posts for paths:', e);
     return [];
   }
 }
@@ -65,34 +87,27 @@ const featuredImage = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
       </section>
     ) : (
       <>
-        <!-- Hero con imagen y título -->
-        <section class="bg-fondo py-16">
+        <!-- Artículo: imagen sticky 30% + contenido 70% -->
+        <section class="bg-white py-12">
           <div class="container">
-            <div class="flex flex-col md:flex-row gap-8 items-start">
-              <!-- Imagen - 40% -->
-              {featuredImage && (
-                <div class="w-full md:w-2/5">
-                  <img 
-                    src={featuredImage} 
-                    alt={post.title.rendered}
-                    class="w-full h-auto rounded shadow-lg"
-                  />
-                </div>
-              )}
-              
-              <!-- Título y descripción - 60% -->
-              <div class={featuredImage ? 'w-full md:w-3/5' : 'w-full'}>
-                <a href="/noticias/" class="text-sm text-corp font-medium hover:text-marino transition-colors mb-4 inline-block">
-                  ← Volver a noticias
-                </a>
-                <h1 class="font-serif text-4xl md:text-5xl font-medium text-negro mb-4 leading-tight">
+
+            <!-- Volver -->
+            <a href="/noticias/" class="text-sm text-corp font-medium hover:text-marino transition-colors mb-8 inline-block">
+              ← Volver a noticias
+            </a>
+
+            <div class="flex flex-col md:flex-row gap-10 items-start">
+
+              <!-- COLUMNA IZQUIERDA: título + contenido 64% -->
+              <div class={featuredImage ? 'w-full md:w-[64%]' : 'w-full'}>
+
+                <!-- Título y meta -->
+                <h1 class="font-serif text-2xl md:text-3xl font-medium text-negro mb-2 leading-tight">
                   {post.title.rendered}
                 </h1>
-                <div class="flex items-center gap-4 text-sm text-gris">
-                  <span>{new Date(post.date).toLocaleDateString('es-ES', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                <div class="flex items-center gap-3 text-sm text-gris mb-6">
+                  <span>{new Date(post.date).toLocaleDateString('es-ES', {
+                    year: 'numeric', month: 'long', day: 'numeric'
                   })}</span>
                   {post._embedded?.['wp:term']?.[0]?.[0] && (
                     <>
@@ -101,26 +116,36 @@ const featuredImage = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
                     </>
                   )}
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <!-- Contenido del artículo -->
-        <section class="bg-white py-16">
-          <div class="container max-w-4xl">
-            <div class="prose prose-lg max-w-none
-              prose-headings:font-serif prose-headings:text-negro
-              prose-h2:text-3xl prose-h2:font-medium prose-h2:mb-4 prose-h2:mt-8
-              prose-h3:text-2xl prose-h3:font-medium prose-h3:mb-3 prose-h3:mt-6
-              prose-p:text-base prose-p:text-gris prose-p:leading-relaxed prose-p:mb-4
-              prose-a:text-corp prose-a:no-underline hover:prose-a:text-marino
-              prose-strong:text-negro prose-strong:font-semibold
-              prose-ul:text-gris prose-ol:text-gris
-              prose-li:mb-2
-              prose-img:rounded prose-img:shadow-md"
-              set:html={post.content.rendered}
-            />
+                <hr class="border-gray-200 mb-6" />
+
+                <!-- Contenido del artículo -->
+                <div
+                  class="text-base text-gris leading-relaxed space-y-4
+                    [&_h2]:font-serif [&_h2]:text-xl [&_h2]:font-medium [&_h2]:text-negro [&_h2]:mt-8 [&_h2]:mb-3
+                    [&_h3]:font-serif [&_h3]:text-lg [&_h3]:font-medium [&_h3]:text-negro [&_h3]:mt-6 [&_h3]:mb-2
+                    [&_p]:mb-4
+                    [&_strong]:text-negro [&_strong]:font-semibold
+                    [&_a]:text-corp hover:[&_a]:text-marino
+                    [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1
+                    [&_ol]:list-decimal [&_ol]:pl-5
+                    [&_img]:rounded [&_img]:shadow-md [&_img]:my-6"
+                  set:html={post.content.rendered}
+                />
+              </div>
+
+              <!-- COLUMNA DERECHA: imagen sticky 36% -->
+              {featuredImage && (
+                <div class="w-full md:w-[36%] shrink-0 md:sticky md:top-24">
+                  <img
+                    src={featuredImage}
+                    alt={post.title.rendered}
+                    class="w-full h-auto rounded shadow-lg"
+                  />
+                </div>
+              )}
+
+            </div>
           </div>
         </section>
 

@@ -1,48 +1,116 @@
-# Istmo Consultores — Reglas de diseño para Windsurf
+# Istmo Consultores — Reglas para Windsurf
 
 ## Stack
 - Astro 4 + Tailwind CSS 3
 - Sin frameworks JS (solo Astro vanilla)
-- Fuente: Inter (Google Fonts, ya cargada en Layout.astro)
+- WordPress headless como CMS (API REST en https://istmoconsultores.cl/admin/wp-json/wp/v2/)
+- Deploy: build estático (`npm run build`) → FTP a public_html/prueba/ en benzahosting.cl
 
-## Paleta de colores (definida en tailwind.config.mjs)
+## WordPress API — Autenticación obligatoria
 
-| Nombre   | Clase Tailwind   | Hex       | Uso principal                        |
-|----------|-----------------|-----------|--------------------------------------|
-| marino   | bg-marino        | #1B2E4E   | Hero, navbar dark, foto equipo       |
-| corp     | bg-corp          | #2E5090   | Botones, stats bar, acentos          |
-| medio    | bg-medio         | #5B8CC8   | Dots, números, líneas decorativas    |
-| cielo    | text-cielo       | #9EC3E8   | Texto destacado sobre marino/negro   |
-| negro    | text-negro       | #1C1C1E   | Títulos y texto principal            |
-| gris     | text-gris        | #6B6B6B   | Texto secundario, descripción        |
-| fondo    | bg-fondo         | #F4F7FB   | Fondo de secciones alternas          |
+El endpoint de media de WordPress bloquea acceso sin autenticar. SIEMPRE usar Application Password en todos los fetch a la API WP.
 
-## Clases globales reutilizables (definidas en global.css)
+```ts
+const WP_USER = import.meta.env.WP_USER;
+const WP_APP_PASSWORD = import.meta.env.WP_APP_PASSWORD;
+const authHeader = WP_USER && WP_APP_PASSWORD
+  ? 'Basic ' + btoa(`${WP_USER}:${WP_APP_PASSWORD}`)
+  : '';
+const fetchOpts = { headers: authHeader ? { 'Authorization': authHeader } : {} };
+```
+
+Las credenciales están en `.env` (no subir al servidor, no al repo).
+
+## Fetch de posts con imagen destacada
+
+```ts
+const response = await fetch('https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?_embed&per_page=20', fetchOpts);
+const posts = await response.json();
+
+for (const post of posts) {
+  if (post.featured_media) {
+    const embeddedMedia = post._embedded?.['wp:featuredmedia']?.[0];
+    const hasError = !embeddedMedia || embeddedMedia?.code === 'rest_forbidden' || !embeddedMedia?.source_url;
+    if (hasError) {
+      const mediaRes = await fetch(
+        `https://istmoconsultores.cl/admin/wp-json/wp/v2/media/${post.featured_media}`,
+        fetchOpts
+      );
+      if (mediaRes.ok) {
+        const media = await mediaRes.json();
+        post.featured_image_url = media.source_url;
+      }
+    }
+  }
+}
+```
+
+Para obtener la URL de imagen en el template:
+```ts
+const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.featured_image_url;
+```
+
+## getStaticPaths en páginas dinámicas
+
+Siempre incluir auth en getStaticPaths también:
+
+```ts
+export async function getStaticPaths() {
+  const WP_USER = import.meta.env.WP_USER;
+  const WP_APP_PASSWORD = import.meta.env.WP_APP_PASSWORD;
+  const authHeader = WP_USER && WP_APP_PASSWORD
+    ? 'Basic ' + btoa(`${WP_USER}:${WP_APP_PASSWORD}`)
+    : '';
+  const response = await fetch(
+    'https://istmoconsultores.cl/admin/wp-json/wp/v2/posts?per_page=100',
+    { headers: authHeader ? { 'Authorization': authHeader } : {} }
+  );
+  const posts = await response.json();
+  return posts.map((post: any) => ({ params: { slug: post.slug } }));
+}
+```
+
+## Paleta de colores (tailwind.config.mjs)
+
+| Nombre | Clase Tailwind | Hex     | Uso                                  |
+|--------|---------------|---------|--------------------------------------|
+| marino | bg-marino     | #1B2E4E | Hero, navbar dark, foto equipo       |
+| corp   | bg-corp       | #2E5090 | Botones, stats bar, acentos          |
+| medio  | bg-medio      | #5B8CC8 | Dots, números, líneas decorativas    |
+| cielo  | text-cielo    | #9EC3E8 | Texto destacado sobre marino/negro   |
+| negro  | text-negro    | #1C1C1E | Títulos y texto principal            |
+| gris   | text-gris     | #6B6B6B | Texto secundario                     |
+| fondo  | bg-fondo      | #F4F7FB | Fondo de secciones alternas          |
+
+## Clases globales (global.css)
 
 ```
 .container    → max-w-site mx-auto px-8
 .eyebrow      → texto pequeño uppercase corp encima de títulos
-.section-title → título de sección h2
+.section-title → h2 de sección
 .btn-primary  → botón azul corp, hover marino
-.btn-ghost    → botón outline blanco (para fondos oscuros)
+.btn-ghost    → botón outline blanco (fondos oscuros)
 ```
 
-## Estructura de carpetas
+## Estructura de archivos
 
 ```
 src/
-├── components/   → Un componente por sección (Header, Hero, Footer, etc.)
+├── components/   → Header, Footer, Hero, About, Services, Team, etc.
 ├── layouts/      → Layout.astro (base HTML, fuentes, meta)
-├── pages/        → Una página por ruta (index, nosotros, servicios, equipo, contacto)
-└── styles/       → global.css (solo @tailwind + clases globales)
-public/
-└── logo-ISTMO.svg
+├── pages/
+│   ├── index.astro
+│   ├── nosotros.astro
+│   ├── servicios.astro
+│   ├── equipo.astro
+│   ├── sectores.astro
+│   ├── contacto.astro
+│   ├── noticias.astro        ← lista de posts WP
+│   └── noticias/[slug].astro ← post individual WP
+└── styles/global.css
 ```
 
-## Cómo crear una nueva página interna
-
-1. Crear el archivo en `src/pages/nombre-pagina.astro`
-2. Usar siempre este esqueleto:
+## Esqueleto de página interna
 
 ```astro
 ---
@@ -50,80 +118,93 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
-
-<Layout title="Título de la página — Istmo Consultores">
+<Layout title="Título — Istmo Consultores">
   <Header />
   <main>
-    <!-- contenido aquí -->
+    <!-- contenido -->
   </main>
   <Footer />
 </Layout>
 ```
 
-## Patrón de sección estándar
+## Patrón de sección
 
 ```astro
 <section class="bg-white py-20">
   <div class="container">
-    <p class="eyebrow">Subtítulo pequeño</p>
-    <h2 class="section-title">Título principal de la sección</h2>
-    <!-- contenido -->
+    <p class="eyebrow">Subtítulo</p>
+    <h2 class="section-title">Título</h2>
   </div>
 </section>
 ```
 
-## Alternancia de fondos entre secciones
+Alternancia de fondos: `bg-white` → `bg-fondo` → `bg-marino` (oscuro)
 
-Seguir este patrón para que las secciones no se vean iguales:
-- Sección clara: `bg-white`
-- Sección alternada: `bg-fondo`
-- Sección oscura (énfasis): `bg-negro` o `bg-marino`
+## Layout de post individual (noticias/[slug].astro) — NO CAMBIAR
 
-## Páginas pendientes de crear
+La sección hero del post SIEMPRE tiene exactamente este layout de 2 columnas:
+- Columna izquierda: imagen destacada → `w-full md:w-2/5`
+- Columna derecha: título + fecha + categoría → `w-full md:w-3/5`
 
-### /nosotros
-- Hero pequeño con `bg-marino` y título de página
-- Sección: Misión y Visión (2 columnas)
-- Sección: 7 Principios Rectores (grid de cards)
-- Sección: Modelo de trabajo (5 pasos numerados)
+Este layout es FIJO e INAMOVIBLE. No convertir a columna única. No centrar. No cambiar proporciones.
 
-### /servicios
-- Hero pequeño
-- 3 secciones detalladas (una por pilar), cada una con id: #estrategia, #innovacion, #proyectos
-- Cada pilar: título, descripción larga, lista de servicios con dots
+```astro
+<!-- Hero post — estructura obligatoria, no modificar -->
+<section class="bg-fondo py-16">
+  <div class="container">
+    <div class="flex flex-col md:flex-row gap-8 items-start">
 
-### /equipo
-- Hero pequeño
-- Grid de 5 cards con foto placeholder (usar iniciales como está en Team.astro)
-- Bio completa de cada director
-- Sección "Red de Expertos Asociados"
+      <!-- IMAGEN — 40% del ancho en desktop, SIEMPRE a la izquierda -->
+      {featuredImage && (
+        <div class="w-full md:w-2/5">
+          <img
+            src={featuredImage}
+            alt={post.title.rendered}
+            class="w-full h-auto rounded shadow-lg"
+          />
+        </div>
+      )}
 
-### /sectores
-- Hero pequeño
-- Pills de sectores (reutilizar de Sectors.astro)
-- Lista de tipos de clientes
+      <!-- TÍTULO Y META — 60% del ancho en desktop, SIEMPRE a la derecha -->
+      <div class={featuredImage ? 'w-full md:w-3/5' : 'w-full'}>
+        <a href="/noticias/" class="text-sm text-corp font-medium hover:text-marino transition-colors mb-4 inline-block">
+          ← Volver a noticias
+        </a>
+        <h1 class="font-serif text-4xl md:text-5xl font-medium text-negro mb-4 leading-tight">
+          {post.title.rendered}
+        </h1>
+        <div class="flex items-center gap-4 text-sm text-gris">
+          <span>{new Date(post.date).toLocaleDateString('es-ES', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })}</span>
+          {post._embedded?.['wp:term']?.[0]?.[0] && (
+            <>
+              <span>•</span>
+              <span class="text-corp">{post._embedded['wp:term'][0][0].name}</span>
+            </>
+          )}
+        </div>
+      </div>
 
-### /contacto
-- Formulario: nombre, empresa, email, mensaje, botón enviar
-- Datos de contacto: email, país, LinkedIn
-- Sin backend por ahora (usar Netlify Forms o Formspree)
+    </div>
+  </div>
+</section>
+```
 
 ## Tipografía
 
-- Fuentes: `font-serif` (Playfair Display) para h1/h2, `font-sans` (Inter) para cuerpo y eyebrow
-- Títulos h1: `font-serif text-4xl md:text-5xl font-medium`
-- Títulos h2: `font-serif text-2xl md:text-3xl font-medium` (o usar clase `.section-title` que ya incluye font-serif)
-- Títulos h3: `text-base font-medium` (Inter, sin serif)
-- Cuerpo: `text-sm` o `text-[14px]` con `leading-relaxed`
-- Pequeño: `text-[13px]` o `text-[11px]`
+- h1/h2: `font-serif` (Playfair Display) + `font-medium`
+- h1: `text-4xl md:text-5xl`
+- h2: `text-2xl md:text-3xl` (o `.section-title`)
+- h3: `text-base font-medium` (Inter, sin serif)
+- Cuerpo: `text-sm leading-relaxed`
 - Eyebrow: `text-[11px] tracking-[0.12em] uppercase`
 
-## Reglas importantes
+## Reglas de diseño
 
-- Siempre `rounded` (no rounded-lg ni rounded-xl) en cards y botones
-- Bordes de cards: `border border-gray-200`
-- Hover en cards: `hover:shadow-md transition-shadow`
-- Cards de servicio: borde superior de acento `border-t-[3px] border-t-corp`
-- El logo en fondos oscuros: agregar `brightness-0 invert opacity-60`
-- No usar colores fuera de la paleta definida
-- Mobile-first: empezar con diseño móvil y agregar `md:` para desktop
+- Cards: `border border-gray-200 rounded hover:shadow-md transition-shadow`
+- Acento en cards de servicio: `border-t-[3px] border-t-corp`
+- Logo en fondos oscuros: `brightness-0 invert opacity-60`
+- No usar colores fuera de la paleta
+- Mobile-first: diseño base móvil, luego `md:` para desktop
+- Sin rounded-lg ni rounded-xl, siempre `rounded`
