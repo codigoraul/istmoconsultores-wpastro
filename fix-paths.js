@@ -44,6 +44,10 @@ async function fixPaths(dir, baseDir = './dist') {
       content = content.replace(/href="\/sectores\/"/g, `href="${basePrefix}sectores/"`);
       content = content.replace(/href="\/contacto\/"/g, `href="${basePrefix}contacto/"`);
       content = content.replace(/href="\/contacto"/g, `href="${basePrefix}contacto/"`);
+      
+      // Links dinámicos de noticias (ej: /noticias/slug-del-articulo/)
+      content = content.replace(/href="\/noticias\/([^"]+)\/"/g, `href="${basePrefix}noticias/$1/"`);
+      
       content = content.replace(/href="\/"/g, `href="${basePrefix}"`);
       
       // Links con anchors
