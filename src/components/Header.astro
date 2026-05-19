@@ -35,7 +35,7 @@ const current = Astro.url.pathname;
       </ul>
     </nav>
 
-    <a href="/contacto" class="btn-primary hidden md:inline-block text-sm px-6 py-2.5">
+    <a href="/contacto/" class="btn-primary hidden md:inline-block text-sm px-6 py-2.5">
       Contacto
     </a>
 
@@ -51,7 +51,7 @@ const current = Astro.url.pathname;
       {navLinks.map(link => (
         <a href={link.href} class="text-base text-negro py-3 text-center rounded transition-colors hover:bg-fondo">{link.label}</a>
       ))}
-      <a href="/contacto" class="btn-primary text-center mt-2">Contacto</a>
+      <a href="/contacto/" class="btn-primary text-center mt-2">Contacto</a>
     </div>
   </div>
 </header>

@@ -7,6 +7,7 @@ import Footer from '../components/Footer.astro';
 const team = [
   {
     initials: 'FS',
+    photo: '/images/team/farid.webp',
     name: 'Farid Seleme Ruilova',
     role: 'Socio Director',
     bio: 'Abogado y Magíster en Derecho Ambiental. Más de diez años en asuntos públicos, análisis político-regulatorio y relacionamiento institucional en Chile y América Latina.',
@@ -14,6 +15,7 @@ const team = [
   },
   {
     initials: 'CG',
+    photo: '/images/team/constanza.webp',
     name: 'Constanza Guerrero Reyes',
     role: 'Directora Legal',
     bio: 'Abogada especializada en derecho administrativo, inmobiliario y urbanístico. Experta en regulación pública, estructuración jurídica de proyectos y permisos.',
@@ -21,6 +23,7 @@ const team = [
   },
   {
     initials: 'JS',
+    photo: '/images/team/juanantonio.webp',
     name: 'Juan Antonio Seleme Yagnam',
     role: 'Director de Proyectos y Desarrollo Territorial',
     bio: 'Ingeniero Civil Industrial y Magíster en Desarrollo Social Rural. Especialista en formulación de proyectos, desarrollo territorial y relacionamiento comunitario.',
@@ -28,6 +31,7 @@ const team = [
   },
   {
     initials: 'JR',
+    photo: '/images/team/jose.webp',
     name: 'José Pedro Rossel',
     role: 'Director de Comunicación Estratégica',
     bio: 'Periodista con especialización en política internacional. Trayectoria en el Ministerio de Relaciones Exteriores y la Cámara de Diputadas y Diputados de Chile.',
@@ -35,6 +39,7 @@ const team = [
   },
   {
     initials: 'JH',
+    photo: '/images/team/julio.webp',
     name: 'Julio Héctor Sánchez Gutiérrez',
     role: 'Subdirector Regional — Centroamérica, el Caribe y México',
     bio: 'Biólogo con más de 30 años en desarrollo sostenible y derecho ambiental. Asesor legislativo para organismos multilaterales en América Latina y el Caribe.',
@@ -69,8 +74,16 @@ const team = [
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {team.map(m => (
             <article class="bg-white border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow">
-              <div class="h-20 bg-marino flex items-center justify-center">
-                <div class="w-12 h-12 rounded-full border-2 border-medio flex items-center justify-center text-base font-medium text-cielo">
+              <div class="h-48 bg-marino flex items-center justify-center overflow-hidden">
+                {m.photo ? (
+                  <img
+                    src={m.photo}
+                    alt={m.name}
+                    class="w-full h-full object-cover object-top"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                ) : null}
+                <div class={`w-16 h-16 rounded-full border-2 border-medio flex items-center justify-center text-xl font-medium text-cielo ${m.photo ? 'hidden' : 'flex'}`}>
                   {m.initials}
                 </div>
               </div>
@@ -83,16 +96,16 @@ const team = [
           ))}
 
           <!-- Tarjeta Red de Expertos Asociados -->
-          <article class="bg-marino border border-marino rounded overflow-hidden hover:shadow-md transition-shadow">
-            <div class="h-20 bg-negro/30 flex items-center justify-center">
-              <div class="w-12 h-12 rounded-full border-2 border-cielo flex items-center justify-center text-base font-medium text-cielo">
+          <article class="bg-white border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow">
+            <div class="h-48 bg-fondo flex items-center justify-center">
+              <div class="w-16 h-16 rounded-full border-2 border-corp flex items-center justify-center text-2xl text-corp">
                 ✦
               </div>
             </div>
             <div class="p-6">
-              <h3 class="text-lg font-medium text-white mb-1">Red de Expertos Asociados</h3>
-              <p class="text-[11px] text-cielo uppercase tracking-wide font-medium mb-4">Red especializada</p>
-              <p class="text-base text-white/75 leading-relaxed">
+              <h3 class="text-lg font-medium text-negro mb-1">Red de Expertos Asociados</h3>
+              <p class="text-[11px] text-corp uppercase tracking-wide font-medium mb-4">Red especializada</p>
+              <p class="text-base text-gris leading-relaxed">
                 Istmo Consultores cuenta con una red de profesionales senior que se integran a los proyectos según sus requerimientos específicos, permitiendo escalar capacidades y responder con flexibilidad a cada encargo y contexto.
               </p>
             </div>
