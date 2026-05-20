@@ -3,114 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import Footer from '../components/Footer.astro';
+import { getServicios } from '../lib/wordpress';
 
-const servicios = [
-  {
-    id: 'estrategia',
-    num: '01',
-    title: 'Estrategia Pública y Reputacional',
-    subareas: [
-      {
-        id: 'asuntos-publicos',
-        title: 'Asuntos Públicos',
-        descripcion: 'Diseñamos e implementamos estrategias de relacionamiento institucional que permiten a nuestros clientes desenvolverse de manera legítima, transparente y efectiva en su entorno político y regulatorio.',
-        items: [
-          'Diseño de estrategias de relacionamiento público-privado.',
-          'Monitoreo y análisis legislativo y regulatorio.',
-          'Análisis prospectivo del entorno político, social y económico.',
-          'Mapeo, segmentación y perfilamiento de stakeholders.',
-          'Posicionamiento institucional ante autoridades y organismos multilaterales.',
-        ],
-      },
-      {
-        id: 'comunicacion-estrategica',
-        title: 'Comunicación Estratégica',
-        descripcion: 'Acompañamos a las organizaciones en la construcción, protección y recuperación de su reputación institucional, integrando análisis avanzado de datos y monitoreo inteligente del entorno digital.',
-        items: [
-          'Diagnósticos reputacionales.',
-          'Monitoreo y mapeo de marca en entornos digitales.',
-          'Diseño de estrategias comunicacionales integrales.',
-          'Gestión y preparación ante escenarios de crisis.',
-          'Desarrollo de vocerías y mensajes estratégicos.',
-          'Alineamiento comunicacional interno y externo.',
-        ],
-      },
-    ],
-  },
-  {
-    id: 'innovacion',
-    num: '02',
-    title: 'Innovación Institucional y Corporativa',
-    subareas: [
-      {
-        id: 'compliance',
-        title: 'Compliance y Gobernanza',
-        descripcion: 'Fortalecemos los marcos de cumplimiento, integridad y gobernanza institucional de cada organización, alineados con estándares nacionales e internacionales.',
-        items: [
-          'Diagnóstico de riesgos de compliance y gobernanza.',
-          'Diseño de modelos de prevención y cumplimiento.',
-          'Elaboración y actualización de códigos de ética y conducta.',
-          'Protocolos de relacionamiento con autoridades y stakeholders.',
-          'Capacitación en integridad y estándares ESG.',
-        ],
-      },
-      {
-        id: 'cambio-organizacional',
-        title: 'Cambio Organizacional y Formación Corporativa',
-        descripcion: 'Acompañamos procesos de transformación institucional, asegurando coherencia entre estrategia, cultura organizacional y comunicación.',
-        items: [
-          'Diagnósticos organizacionales.',
-          'Gestión y acompañamiento en procesos de cambio organizacional.',
-          'Diseño de planes de comunicación interna.',
-          'Talleres de alineamiento estratégico y cultural.',
-          'Elaboración de protocolos institucionales.',
-          'Diseño e implementación de modelos de evaluación de desempeño y formación por competencias.',
-        ],
-      },
-    ],
-  },
-  {
-    id: 'proyectos',
-    num: '03',
-    title: 'Desarrollo y Viabilidad de Proyectos',
-    subareas: [
-      {
-        id: 'formulacion',
-        title: 'Formulación y Evaluación de Proyectos',
-        descripcion: 'Apoyamos la estructuración de proyectos de inversión públicos y privados mediante análisis técnico, económico, financiero, regulatorio y estratégico.',
-        items: [
-          'Estructuración integral de proyectos de inversión social y privada.',
-          'Modelamiento de negocios y análisis de viabilidad económica.',
-          'Evaluación de riesgos regulatorios, territoriales y comerciales.',
-          'Análisis de sensibilidad y mitigación de riesgos.',
-          'Gestión de financiamiento.',
-        ],
-      },
-      {
-        id: 'desarrollo-territorial',
-        title: 'Desarrollo Territorial y Relaciones Comunitarias',
-        descripcion: 'Implementamos estrategias en el territorio, facilitando la viabilidad social e institucional de los proyectos e incluyendo el fortalecimiento de economías locales con modelos asociativos.',
-        items: [
-          'Estrategias de relacionamiento comunitario para proyectos mineros, energéticos, agrícolas, inmobiliarios y de infraestructura.',
-          'Impulso del desarrollo económico local mediante la articulación entre Estado, empresas y comunidades.',
-          'Diseño y fortalecimiento de modelos asociativos (incluyendo cooperativas productivas y territoriales).',
-          'Programas de capacitación por competencias para comunidades.',
-          'Diseño de programas de impacto socioeconómico territorial.',
-        ],
-      },
-      {
-        id: 'inversiones',
-        title: 'Estrategia y Viabilidad de Inversiones',
-        descripcion: 'Acompañamos a las organizaciones en la estructuración, protección y optimización de su capital, integrando análisis de riesgo tradicional con herramientas de la economía digital.',
-        items: [
-          'Asesoría en inversiones tradicionales y estructuración de portafolios.',
-          'Estrategias en Finanzas Descentralizadas (DeFi) y gestión de activos digitales, incluyendo operación en exchanges descentralizados (DEX), provisión de liquidez y optimización de rendimientos (yield farming).',
-          'Desarrollo de contenidos para relacionamiento con inversionistas.',
-        ],
-      },
-    ],
-  },
-];
+const servicios = await getServicios();
 ---
 
 <Layout title="Servicios — Istmo Consultores">
@@ -122,7 +17,6 @@ const servicios = [
       subtitle="Tres pilares estratégicos para proyectos sostenibles"
       image="/images/title-servicios.webp"
     />
-    </section>
 
     <section class="bg-white py-10 border-b border-gray-100">
       <div class="container">
@@ -133,24 +27,24 @@ const servicios = [
     </section>
 
     {servicios.map((svc, index) => (
-      <section id={svc.id} class={`relative overflow-hidden py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-fondo'}`}>
+      <section id={svc.slug} class={`relative overflow-hidden py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-fondo'}`}>
         {index === 1 && (
           <div class="absolute inset-0 z-0">
             <img src="/images/bg-oficina-transparente.webp" alt="" class="w-full h-full object-cover object-center opacity-[0.06]" />
           </div>
         )}
         <div class="container relative z-10">
-          <span class="text-[11px] text-medio font-medium tracking-widest block mb-2">{svc.num}</span>
-          <h2 class="text-2xl md:text-3xl font-medium text-negro leading-tight mb-8">{svc.title}</h2>
+          <span class="text-[11px] text-medio font-medium tracking-widest block mb-2">{svc.numero}</span>
+          <h2 class="text-2xl md:text-3xl font-medium text-negro leading-tight mb-8">{svc.titulo}</h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {svc.subareas.map(sub => (
-              <div id={sub.id} class="bg-white border border-gray-200 border-t-[3px] border-t-corp rounded p-6 flex flex-col gap-4">
-                <h3 class="text-lg font-semibold text-negro leading-snug">{sub.title}</h3>
+              <div class="bg-white border border-gray-200 border-t-[3px] border-t-corp rounded p-6 flex flex-col gap-4">
+                <h3 class="text-lg font-semibold text-negro leading-snug">{sub.titulo}</h3>
                 <p class="text-[13px] text-gris leading-relaxed">{sub.descripcion}</p>
                 <p class="text-[11px] font-semibold text-negro tracking-widest uppercase mt-2">Servicios</p>
                 <ul class="flex flex-col gap-2 flex-1">
-                  {sub.items.map(item => (
+                  {sub.puntos.map(item => (
                     <li class="flex items-start gap-2 text-[13px] text-gris leading-snug">
                       <span class="w-1.5 h-1.5 rounded-full bg-medio flex-shrink-0 mt-1.5"></span>
                       {item}
