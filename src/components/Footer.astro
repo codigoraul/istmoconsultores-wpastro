@@ -72,8 +72,14 @@ const year = new Date().getFullYear();
 
   </div>
 
-  <div class="container py-5 flex flex-wrap justify-between gap-2 text-[12px] text-white/20">
+  <div class="container py-5 flex flex-wrap justify-between items-center gap-2 text-[12px] text-white/20">
     <span>© {year} Istmo Consultores · Todos los derechos reservados</span>
-    <span>Santiago, Chile</span>
+    <div class="flex items-center gap-4">
+      <span>Santiago, Chile</span>
+      <span>·</span>
+      <a href="https://diseñopaginas.cl" target="_blank" rel="noopener" class="hover:text-white/40 transition-colors">
+        por diseñopaginas.cl
+      </a>
+    </div>
   </div>
 </footer>
