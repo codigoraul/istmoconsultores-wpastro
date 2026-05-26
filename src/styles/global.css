@@ -25,3 +25,9 @@
     @apply inline-block border border-white/30 text-white/85 text-sm px-7 py-3 rounded transition-colors hover:border-white/70 hover:text-white;
   }
 }
+
+@layer utilities {
+  .text-3xl {
+    font-size: 1.6rem;
+  }
+}
