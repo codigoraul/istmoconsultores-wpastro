@@ -180,7 +180,11 @@ export async function getEquipo() {
     const data = await res.json();
     return data.map((post: any) => {
       const name: string = post.title?.rendered ?? '';
-      const initials = name.split(' ').slice(0, 2).map((w: string) => w[0]).join('').toUpperCase();
+      const words = name.split(' ').filter(Boolean);
+      const second = words.length >= 3 ? words[2] : words[1];
+      const initials = words.length >= 2
+        ? (words[0][0] + (second?.[0] ?? '')).toUpperCase()
+        : (words[0]?.[0] ?? '').toUpperCase();
       return {
         id:          post.id,
         initials,

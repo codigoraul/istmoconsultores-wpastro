@@ -12,8 +12,8 @@ const opts = await getSiteOptions();
     <div>
       <img src="/logo-ISTMO-v.svg" alt="Istmo Consultores" width="260" height="100"
         class="mb-4 brightness-0 invert opacity-60" style="height:74px; width:auto;" />
-      <p class="text-[13px] text-white/40 italic mb-4">Conectamos visiones, construimos valor</p>
-      <p class="text-[13px] text-white/35 leading-relaxed">
+      <p class="text-[13px] text-white/60 italic mb-4">Conectamos visiones, construimos valor</p>
+      <p class="text-[13px] text-white/55 leading-relaxed">
         Firma especializada en asuntos públicos, comunicación estratégica, desarrollo territorial
         e innovación institucional, con base en Chile y presencia en América Latina y el Caribe.
       </p>
@@ -29,14 +29,14 @@ const opts = await getSiteOptions();
           {label: 'Desarrollo y Viabilidad de Proyectos', href: '/servicios#proyectos'},
         ].map(s => (
           <li>
-            <a href={s.href} class="text-[13px] text-white/50 hover:text-white/90 transition-colors leading-snug block">
+            <a href={s.href} class="text-[13px] text-white/65 hover:text-white/95 transition-colors leading-snug block">
               {s.label}
             </a>
           </li>
         ))}
       </ul>
       <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-3">Sectores</h3>
-      <p class="text-[13px] text-white/35 leading-relaxed">
+      <p class="text-[13px] text-white/55 leading-relaxed">
         Energía · Minería · Infraestructura · Desarrollo urbano · Políticas públicas · Innovación y sostenibilidad
       </p>
     </div>
@@ -52,25 +52,25 @@ const opts = await getSiteOptions();
           {label: 'Contacto', href: '/contacto'},
         ].map(l => (
           <li>
-            <a href={l.href} class="text-[13px] text-white/50 hover:text-white/90 transition-colors">{l.label}</a>
+            <a href={l.href} class="text-[13px] text-white/65 hover:text-white/95 transition-colors">{l.label}</a>
           </li>
         ))}
       </ul>
       <h3 class="text-[11px] tracking-widest uppercase text-cielo font-medium mb-4">Contacto</h3>
       <ul class="flex flex-col gap-2.5">
         <li>
-          <a href={`mailto:${opts.email_contacto}`} class="text-[13px] text-white/50 hover:text-white/90 transition-colors">
+          <a href={`mailto:${opts.email_contacto}`} class="text-[13px] text-white/65 hover:text-white/95 transition-colors">
             {opts.email_contacto}
           </a>
         </li>
         {opts.telefono && (
-          <li class="text-[13px] text-white/50" set:html={opts.telefono.replace(/\n/g, ' · ')} />
+          <li class="text-[13px] text-white/65" set:html={opts.telefono.replace(/\n/g, ' · ')} />
         )}
-        <li class="text-[13px] text-white/35">{opts.ubicacion} · América Latina y el Caribe</li>
+        <li class="text-[13px] text-white/55">{opts.ubicacion} · América Latina y el Caribe</li>
         {opts.linkedin && (
           <li>
             <a href={opts.linkedin} target="_blank" rel="noopener"
-              class="text-[13px] text-white/50 hover:text-white/90 transition-colors">
+              class="text-[13px] text-white/65 hover:text-white/95 transition-colors">
               LinkedIn
             </a>
           </li>
