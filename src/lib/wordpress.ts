@@ -16,7 +16,7 @@ export interface HeroContent {
 
 const DEFAULT_HERO: HeroContent = {
   imagenes:            ['/images/slider-1.webp', '/images/slider-2.webp'],
-  hero_eyebrow:        "Asuntos Públicos · Comunicación Estratégica\nDesarrollo Territorial · Innovación Institucional",
+  hero_eyebrow:        "ASUNTOS PÚBLICOS - INNOVACIÓN INSTITUCIONAL - DESARROLLO TERRITORIAL",
   hero_titulo:         'Conectamos visiones,',
   hero_titulo_enfasis: 'construimos valor',
   hero_subtitulo:      'Transformamos la complejidad institucional, política y territorial en ventajas estratégicas para nuestros clientes en América Latina y el Caribe.',
@@ -50,31 +50,52 @@ export async function getHeroContent(): Promise<HeroContent> {
 }
 
 // Datos del sitio (email, teléfono, ubicación, LinkedIn)
+export interface StatItem {
+  valor: string;
+  label: string;
+}
+
 export interface SiteOptions {
   email_contacto: string;
   telefono:       string;
   ubicacion:      string;
   linkedin:       string;
+  stats:          StatItem[];
 }
+
+const DEFAULT_STATS: StatItem[] = [
+  { valor: '3',   label: 'Pilares estratégicos' },
+  { valor: '5+',  label: 'Directores especializados' },
+  { valor: 'LAC', label: 'América Latina y el Caribe' },
+  { valor: '10+', label: 'Años de experiencia' },
+];
 
 const DEFAULT_OPTIONS: SiteOptions = {
   email_contacto: 'contacto@istmoconsultores.cl',
   telefono:       '',
   ubicacion:      'Santiago, Chile',
   linkedin:       'https://www.linkedin.com/company/istmoconsultores',
+  stats:          DEFAULT_STATS,
 };
 
 export async function getSiteOptions(): Promise<SiteOptions> {
   try {
-    const res = await fetch(`${WP_BASE}/istmo/v1/opciones`);
+    const res = await fetch(`${WP_BASE}/istmo/v1/opciones2`);
     if (!res.ok) return DEFAULT_OPTIONS;
     const data = await res.json();
-    // Mezclar con defaults para campos vacíos
+    // Reconstruir stats desde los 4 pares de campos
+    const stats: StatItem[] = [1, 2, 3, 4]
+      .map(i => ({
+        valor: data[`stat_${i}_valor`] || '',
+        label: data[`stat_${i}_label`] || '',
+      }))
+      .filter(s => s.valor && s.label);
     return {
       email_contacto: data.email_contacto || DEFAULT_OPTIONS.email_contacto,
       telefono:       data.telefono       || DEFAULT_OPTIONS.telefono,
       ubicacion:      data.ubicacion      || DEFAULT_OPTIONS.ubicacion,
       linkedin:       data.linkedin       || DEFAULT_OPTIONS.linkedin,
+      stats:          stats.length ? stats : DEFAULT_STATS,
     };
   } catch {
     return DEFAULT_OPTIONS;

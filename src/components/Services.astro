@@ -1,17 +1,15 @@
 ---
 const services = [
   {
-    num: '01',
     id: 'estrategia',
-    title: 'Estrategia Pública y Reputacional',
+    title: 'Asuntos Públicos',
     description: 'Diseñamos estrategias de relacionamiento institucional y comunicación que permiten desenvolverse de manera legítima y efectiva en entornos político-regulatorios complejos.',
     subareas: [
-      'Asuntos Públicos',
-      'Comunicación Estratégica',
+      'Estrategia pública y reputacional',
+      'Comunicación estratégica',
     ],
   },
   {
-    num: '02',
     id: 'innovacion',
     title: 'Innovación Institucional y Corporativa',
     description: 'Fortalecemos marcos de cumplimiento, integridad y gobernanza, acompañando procesos de transformación con coherencia entre estrategia, cultura y comunicación.',
@@ -21,14 +19,13 @@ const services = [
     ],
   },
   {
-    num: '03',
     id: 'proyectos',
-    title: 'Desarrollo y Viabilidad de Proyectos',
+    title: 'Desarrollo territorial y viabilidad de proyectos',
     description: 'Apoyamos la estructuración de proyectos de inversión, implementamos estrategias territoriales y acompañamos a las organizaciones en la optimización de su capital.',
     subareas: [
-      'Formulación y Evaluación de Proyectos',
-      'Desarrollo Territorial y Relaciones Comunitarias',
-      'Estrategia y Viabilidad de Inversiones',
+      'Desarrollo territorial y relaciones comunitarias',
+      'Formulación y evaluación de proyectos',
+      'Estrategia y viabilidad de inversiones',
     ],
   },
 ];
@@ -42,10 +39,7 @@ const services = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
       {services.map(svc => (
         <article class="border border-gray-200 border-t-[3px] border-t-corp rounded p-7 flex flex-col gap-4 hover:shadow-md transition-shadow">
-          <div>
-            <span class="text-[11px] text-medio font-medium tracking-widest block mb-2">{svc.num}</span>
-            <h3 class="text-lg font-medium text-negro leading-snug">{svc.title}</h3>
-          </div>
+          <h3 class="text-lg font-medium text-negro leading-snug">{svc.title}</h3>
           <ul class="flex flex-col gap-2 flex-1">
             {svc.subareas.map(area => (
               <li class="flex items-start gap-2 text-[13px] text-negro font-medium leading-snug">
@@ -54,8 +48,13 @@ const services = [
               </li>
             ))}
           </ul>
-          <a href={`/servicios/#${svc.id}`} class="text-[13px] text-corp font-medium hover:text-marino transition-colors mt-2">
-            Ver detalle completo →
+          <a href={`/servicios/#${svc.id}`} class="flex items-center justify-between border-t border-gray-200 pt-4 mt-2 text-corp hover:text-marino transition-colors group">
+            <span class="text-[12px] font-medium tracking-wide uppercase">Explorar área</span>
+            <span class="w-8 h-8 rounded-full bg-corp group-hover:bg-marino transition-colors flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
           </a>
         </article>
       ))}
