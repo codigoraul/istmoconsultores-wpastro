@@ -26,8 +26,10 @@ const servicios = await getServicios();
       </div>
     </section>
 
-    {servicios.map((svc, index) => (
-      <section id={svc.slug} class={`relative overflow-hidden py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-fondo'}`}>
+    {servicios.map((svc, index) => {
+      const ids = ['estrategia', 'innovacion', 'proyectos'];
+      return (
+      <section id={ids[index]} class={`relative overflow-hidden py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-fondo'}`}>
         {index === 1 && (
           <div class="absolute inset-0 z-0">
             <img src="/images/bg-oficina-transparente.webp" alt="" class="w-full h-full object-cover object-center opacity-[0.06]" />
@@ -55,7 +57,8 @@ const servicios = await getServicios();
           </div>
         </div>
       </section>
-    ))}
+    );
+    })}
 
     <section class="bg-corp py-16">
       <div class="container text-center">
