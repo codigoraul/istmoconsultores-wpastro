@@ -15,7 +15,7 @@ export interface HeroContent {
 }
 
 const DEFAULT_HERO: HeroContent = {
-  imagenes:            ['/images/slider-1.webp', '/images/slider-2.webp'],
+  imagenes:            ['/images/slider-1.webp', '/images/slider-2.webp', '/images/slider-3.webp'],
   hero_eyebrow:        "ASUNTOS PÚBLICOS - INNOVACIÓN INSTITUCIONAL - DESARROLLO TERRITORIAL",
   hero_titulo:         'Conectamos visiones,',
   hero_titulo_enfasis: 'construimos valor',
