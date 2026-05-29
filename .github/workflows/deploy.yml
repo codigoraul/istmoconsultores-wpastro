@@ -29,9 +29,6 @@ jobs:
           WP_USER: ${{ secrets.WP_USER }}
           WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
 
-      - name: Fix paths to relative
-        run: node fix-paths.js
-
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -41,5 +38,5 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           protocol: ftps
           local-dir: ./dist/
-          server-dir: /prueba/
+          server-dir: /
           dangerous-clean-slate: false
