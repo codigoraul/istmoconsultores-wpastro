@@ -12,11 +12,8 @@ const opts = await getSiteOptions();
     <div>
       <img src="/logo-ISTMO-v.svg" alt="Istmo Consultores" width="260" height="100"
         class="mb-4 brightness-0 invert opacity-60" style="height:74px; width:auto;" />
-      <p class="text-[13px] text-white/85 italic mb-4">Conectamos visiones, construimos valor</p>
-      <p class="text-[13px] text-white/85 leading-relaxed">
-        Firma especializada en asuntos públicos, comunicación estratégica, desarrollo territorial
-        e innovación institucional, con base en Chile y presencia en América Latina y el Caribe.
-      </p>
+      <p class="text-[13px] text-white/85 italic mb-4">{opts.footer_tagline}</p>
+      <p class="text-[13px] text-white/85 leading-relaxed">{opts.footer_descripcion}</p>
     </div>
 
     <!-- Columna 2: Áreas de práctica + Sectores -->

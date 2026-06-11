@@ -56,11 +56,13 @@ export interface StatItem {
 }
 
 export interface SiteOptions {
-  email_contacto: string;
-  telefono:       string;
-  ubicacion:      string;
-  linkedin:       string;
-  stats:          StatItem[];
+  email_contacto:    string;
+  telefono:          string;
+  ubicacion:         string;
+  linkedin:          string;
+  stats:             StatItem[];
+  footer_tagline:    string;
+  footer_descripcion: string;
 }
 
 const DEFAULT_STATS: StatItem[] = [
@@ -71,11 +73,13 @@ const DEFAULT_STATS: StatItem[] = [
 ];
 
 const DEFAULT_OPTIONS: SiteOptions = {
-  email_contacto: 'contacto@istmoconsultores.cl',
-  telefono:       '',
-  ubicacion:      'Santiago, Chile',
-  linkedin:       'https://www.linkedin.com/company/istmoconsultores',
-  stats:          DEFAULT_STATS,
+  email_contacto:    'contacto@istmoconsultores.cl',
+  telefono:          '',
+  ubicacion:         'Santiago, Chile',
+  linkedin:          'https://www.linkedin.com/company/istmoconsultores',
+  stats:             DEFAULT_STATS,
+  footer_tagline:    'Conectamos visiones, construimos valor',
+  footer_descripcion: 'Firma especializada en asuntos públicos, comunicación estratégica, desarrollo territorial e innovación institucional, con base en Chile y presencia en América Latina y el Caribe.',
 };
 
 export async function getSiteOptions(): Promise<SiteOptions> {
@@ -91,11 +95,13 @@ export async function getSiteOptions(): Promise<SiteOptions> {
       }))
       .filter(s => s.valor && s.label);
     return {
-      email_contacto: data.email_contacto || DEFAULT_OPTIONS.email_contacto,
-      telefono:       data.telefono       || DEFAULT_OPTIONS.telefono,
-      ubicacion:      data.ubicacion      || DEFAULT_OPTIONS.ubicacion,
-      linkedin:       data.linkedin       || DEFAULT_OPTIONS.linkedin,
-      stats:          stats.length ? stats : DEFAULT_STATS,
+      email_contacto:    data.email_contacto    || DEFAULT_OPTIONS.email_contacto,
+      telefono:          data.telefono          || DEFAULT_OPTIONS.telefono,
+      ubicacion:         data.ubicacion         || DEFAULT_OPTIONS.ubicacion,
+      linkedin:          data.linkedin          || DEFAULT_OPTIONS.linkedin,
+      stats:             stats.length ? stats : DEFAULT_STATS,
+      footer_tagline:    data.footer_tagline    || DEFAULT_OPTIONS.footer_tagline,
+      footer_descripcion: data.footer_descripcion || DEFAULT_OPTIONS.footer_descripcion,
     };
   } catch {
     return DEFAULT_OPTIONS;
