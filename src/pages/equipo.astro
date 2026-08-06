@@ -35,7 +35,7 @@ console.log('EQUIPO:', team.map(m => m.name));
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {team.map(m => (
             <article class="bg-white border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow">
-              <div class="h-48 bg-marino flex items-center justify-center overflow-hidden">
+              <div class="aspect-square bg-marino flex items-center justify-center overflow-hidden">
                 {m.photo ? (
                   <img
                     src={m.photo}
@@ -71,7 +71,7 @@ console.log('EQUIPO:', team.map(m => m.name));
 
           <!-- Tarjeta Red de Expertos Asociados -->
           <article class="bg-white border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow">
-            <div class="h-48 bg-fondo flex items-center justify-center">
+            <div class="aspect-square bg-fondo flex items-center justify-center">
               <div class="w-16 h-16 rounded-full border-2 border-corp flex items-center justify-center text-2xl text-corp">
                 ✦
               </div>
