@@ -176,6 +176,27 @@ export async function getServicios(): Promise<Servicio[]> {
   }
 }
 
+// Resuelve IDs de adjuntos de WordPress a URLs reales.
+// El campo ACF "foto" devuelve el ID (ej. "74"), no la URL.
+async function resolveMediaUrls(ids: number[]): Promise<Map<number, string>> {
+  const map = new Map<number, string>();
+  if (!ids.length) return map;
+  try {
+    const res = await fetch(
+      `${WP_BASE}/wp/v2/media?include=${ids.join(',')}&per_page=100&_fields=id,source_url`
+    );
+    if (!res.ok) return map;
+    const media = await res.json();
+    if (!Array.isArray(media)) return map;
+    for (const m of media) {
+      if (m?.id && m?.source_url) map.set(Number(m.id), m.source_url as string);
+    }
+  } catch {
+    // silencio: sin fotos se usa el fallback de iniciales
+  }
+  return map;
+}
+
 // Equipo directivo ordenado por menu_order
 export async function getEquipo() {
   try {
@@ -184,7 +205,20 @@ export async function getEquipo() {
     );
     if (!res.ok) return [];
     const data = await res.json();
+
+    // Recolecta los IDs de foto y los resuelve en una sola llamada
+    const fotoIds = data
+      .map((p: any) => Number(p.meta?.foto))
+      .filter((n: number) => Number.isFinite(n) && n > 0);
+    const mediaUrls = await resolveMediaUrls([...new Set<number>(fotoIds)]);
+
     return data.map((post: any) => {
+      const rawFoto = post.meta?.foto;
+      // Acepta tanto un ID de adjunto como una URL directa
+      const photo: string =
+        typeof rawFoto === 'string' && rawFoto.startsWith('http')
+          ? rawFoto
+          : mediaUrls.get(Number(rawFoto)) || '';
       const name: string = post.title?.rendered ?? '';
       const words = name.split(' ').filter(Boolean);
       const second = words.length >= 3 ? words[2] : words[1];
@@ -194,7 +228,7 @@ export async function getEquipo() {
       return {
         id:          post.id,
         initials,
-        photo:       post.meta?.foto              || '',
+        photo,
         name,
         role:        post.meta?.cargo             || '',
         bio:         post.meta?.bio_corta         || '',
