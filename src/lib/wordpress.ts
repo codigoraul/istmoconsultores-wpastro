@@ -234,8 +234,11 @@ export async function getEquipo() {
         bio:         post.meta?.bio_corta         || '',
         bioCompleta: post.meta?.bio_completa      || '',
         linkedin:    post.meta?.linkedin_director || '',
+        orden:       Number(post.meta?.orden) || 999,
       };
-    });
+    })
+    // Ordena por el campo "Orden" de WordPress (1 = primero)
+    .sort((a: any, b: any) => a.orden - b.orden);
   } catch {
     return [];
   }
